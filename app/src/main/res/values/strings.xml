@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Belida</string>
+    <string name="kakao_app_key">2485ff42dd29f07bb00563c512f98192</string>
+    <string name="kakao_oauth_app_key">kakao2485ff42dd29f07bb00563c512f98192</string>
+</resources>

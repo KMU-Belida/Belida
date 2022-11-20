@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "235950985821",
+    "project_id": "belida-project",
+    "storage_bucket": "belida-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235950985821:android:2101133bb43898ce34b3b4",
+        "android_client_info": {
+          "package_name": "com.example.belida"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235950985821-2di0tkvgnbnmguej1kdof6me8ebg7ves.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcSxUbXeW_vTgQLUAulVrw0F91iSqEbyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235950985821-2di0tkvgnbnmguej1kdof6me8ebg7ves.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235950985821:android:ee889727c841543034b3b4",
+        "android_client_info": {
+          "package_name": "com.genuinecoder.belida_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235950985821-2di0tkvgnbnmguej1kdof6me8ebg7ves.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcSxUbXeW_vTgQLUAulVrw0F91iSqEbyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235950985821-2di0tkvgnbnmguej1kdof6me8ebg7ves.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
