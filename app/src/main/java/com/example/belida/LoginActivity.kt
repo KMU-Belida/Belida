@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.belida.database.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     // firebase 라이브러리 불러오기
     var auth: FirebaseAuth? = null
+    val database = Firebase.database
+    val userDB = database.getReference("user")
 
     // 주의 onCreate밖에서 view정보를 호출하면 안됨, 선언까지는가능!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
                         // Creating a user account
                         Toast.makeText(this, "회원가입 및 로그인 완료!", Toast.LENGTH_LONG).show()
                         moveMainPage(task.result.user)
+                        userDB.push().setValue(User(emailEdit.text.toString(), passwordEdit.text.toString(), "", "", ""))
 //                    }else if(!task.exception?.message.isNullOrEmpty()){
 //                        // show login error message
 //                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()

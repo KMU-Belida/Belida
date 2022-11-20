@@ -3,14 +3,23 @@ package com.example.belida
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import com.example.belida.database.User
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause.*
 import com.kakao.sdk.user.UserApiClient
 
 class MainActivity : AppCompatActivity() {
+
+    val TAG = "MainActivity" // Tag는 바뀌지 않으므로 한 번 선언해서 계속 재사용
+    val database = Firebase.database
+    val userDB = database.getReference("user")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,6 +69,17 @@ class MainActivity : AppCompatActivity() {
             }
             else if (token != null) {
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                UserApiClient.instance.me { user, error ->
+                    if (error != null) {
+                        Log.e(TAG, "사용자 정보 요청 실패", error)
+                    }
+                    else if (user != null) {
+                        // val userId = user.id
+                        val userEmail = user.kakaoAccount?.email.toString()
+                        val userNickName = user.kakaoAccount?.profile?.nickname.toString()
+                        userDB.push().setValue(User(userEmail, "", userNickName, "", token.toString()))
+                    }
+                }
                 val intent = Intent(this, PhoneActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
@@ -82,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         fun moveEmailLoginPage(){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish()
+
         }
 
         // 이메일로 로그인 버튼 객체 만들기
