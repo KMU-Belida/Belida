@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--background 이미지 잘 보이게해주는 코드-->
+
+    <ImageButton
+        android:id="@+id/declare_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="585dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/declare" />
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="377dp"
+        android:layout_marginBottom="590dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/back" />
+
+    <ImageButton
+        android:id="@+id/photo_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="334dp"
+        android:layout_marginBottom="480dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/image_enroll" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="450dp"
+        android:background="#E5E5E5" />
+
+    <EditText
+        android:id="@+id/item_name_et"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="222dp"
+        android:layout_marginEnd="318dp"
+        android:layout_marginBottom="400dp"
+        android:background="@null"
+        android:gravity="left"
+        android:hint="상품명"
+        android:textColor="#E5E5E5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="375dp"
+        android:background="#E5E5E5" />
+
+    <EditText
+        android:id="@+id/item_category_et"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="318dp"
+        android:layout_marginBottom="325dp"
+        android:background="@null"
+        android:gravity="left"
+        android:hint="카테고리"
+        android:textColor="#E5E5E5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="305dp"
+        android:background="#E5E5E5" />
+
+    <EditText
+        android:id="@+id/item_price_et"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="318dp"
+        android:layout_marginBottom="253dp"
+        android:background="@null"
+        android:gravity="left"
+        android:hint="가격"
+        android:textColor="#E5E5E5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="230dp"
+        android:background="#E5E5E5" />
+
+    <Button
+        android:id="@+id/option1_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="309dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/white_rectangle_radius"
+        android:text="옵션(1)" />
+
+    <Button
+        android:id="@+id/option2_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="207dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/white_rectangle_radius"
+        android:backgroundTint="@color/white"
+        android:text="옵션(2)" />
+
+    <EditText
+        android:id="@+id/item_describe_et"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="50dp"
+        android:background="@null"
+        android:gravity="left"
+        android:hint="여러 장의 상품 사진, 브랜드, 상품 상태 등
+대여자에게 필요한 정보를 적어주세요."
+        android:textColor="#E5E5E5" />
+
+</RelativeLayout>
