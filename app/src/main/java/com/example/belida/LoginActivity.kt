@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // 사용하고싶은 객체를 바인딩으로 생성해야하나?
-        val login_button: Button = findViewById(R.id.email_login_btn)
+        val login_button: Button = findViewById(R.id.email_login_button)
 
         // 로그인 버튼이 눌렸을 경우 이벤트 처리 하는 곳
         login_button.setOnClickListener {

@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         val kakao_login_button = findViewById<AppCompatButton>(R.id.kakao_login_button) // 로그인 버튼
 
         kakao_login_button.setOnClickListener {
