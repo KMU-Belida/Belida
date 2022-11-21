@@ -1,10 +1,16 @@
 package com.example.belida
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.belida.databinding.ActivityNaviBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 private const val TAG_HOME = "home_fragment"
 private const val TAG_CATEGORY = "category_fragment"
@@ -30,6 +36,15 @@ class NaviActivity : AppCompatActivity() {
             }
             true
         }
+
+        // add button 객채 만들기 kotilin에서는 as로 업캐스팅해줌 자바는 c++처럼 강제 형변환 형태
+        val add_button = findViewById(R.id.addButton) as FloatingActionButton
+
+        // add button 눌렸을 경우
+        add_button.setOnClickListener {
+            moveAddPage()
+        }
+
     }
 
     private fun setFragment(tag: String, fragment: Fragment) {
@@ -86,5 +101,18 @@ class NaviActivity : AppCompatActivity() {
         }
 
         fragTransaction.commitAllowingStateLoss()
+    }
+
+    fun moveAddPage(){
+
+        // 현재 로그인한 사용자 정보를 user 변수로 불러오기
+        val user = Firebase.auth.currentUser
+        // user 상태가 존재하면 다음페이지로 넘겨주기
+        if (user != null) {
+            // User is signed in
+            startActivity(Intent(this, ImageEnroll::class.java))
+        } else {
+            // No user is signed in
+        }
     }
 }
