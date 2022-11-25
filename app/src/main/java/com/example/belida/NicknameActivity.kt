@@ -1,5 +1,6 @@
 package com.example.belida
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.example.belida.database.User
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_nickname.*
 
 class NicknameActivity : AppCompatActivity() {
@@ -20,6 +22,7 @@ class NicknameActivity : AppCompatActivity() {
         // 닉네임 등록 버튼을 눌렀을 경우
         nickNameRegisterButton.setOnClickListener {
             pushNicknameDB()
+            moveMainPage()
         }
     }
 
@@ -31,5 +34,9 @@ class NicknameActivity : AppCompatActivity() {
         if (userKey != null) {
             userDB.child(userKey).child("userNickName").setValue(nickName)
         }
+    }
+
+    fun moveMainPage(){
+        startActivity(Intent(this, NaviActivity::class.java))
     }
 }
