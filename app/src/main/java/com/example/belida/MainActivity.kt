@@ -77,12 +77,17 @@ class MainActivity : AppCompatActivity() {
                         // val userId = user.id
                         val userEmail = user.kakaoAccount?.email.toString()
                         val userNickName = user.kakaoAccount?.profile?.nickname.toString()
-                        userDB.push().setValue(User(userEmail, "", userNickName, "", token.toString()))
+                        val userKey = userDB.push().key.toString()
+                        userDB.child(userKey).setValue(User(userEmail, "", userNickName, "", token.toString()))
+                        val userKeyIntent = Intent(this, NicknameActivity::class.java)
+                        userKeyIntent.putExtra("UserKey", userKey)
+                        startActivity(userKeyIntent)
+                        finish()
                     }
                 }
-                val intent = Intent(this, NicknameActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+//                val intent = Intent(this, NicknameActivity::class.java)
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                finish()
             }
         }
 
