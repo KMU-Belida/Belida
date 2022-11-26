@@ -5,11 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.belida.model.ContentDTO
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.item_enroll.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,6 +24,8 @@ class ImageEnroll : AppCompatActivity(){
     var PICK_IMAGE_FROM_ALBUM = 0       // request code?? 뭐야 이거
     var storage : FirebaseStorage? = null
     var photoUri : Uri? = null
+    var auth : FirebaseAuth? = null
+    var firestore : FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -29,6 +37,8 @@ class ImageEnroll : AppCompatActivity(){
 
         // initiate storage (초기화하기)
         storage = FirebaseStorage.getInstance()
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // upload button 눌리는 event 처리하기
         photo_btn.setOnClickListener {
@@ -77,18 +87,75 @@ class ImageEnroll : AppCompatActivity(){
     }
 
     fun contentUpload(){
+        // view에서 필요한거 가져오기
+        var item_describe_et = findViewById(R.id.item_describe_et) as EditText
+
         // Make filename
         var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         var imageFileName = "IMAGE_" + timestamp + "_.png"
 
         var storageRef = storage?.reference?.child("images")?.child(imageFileName)
 
-        // FileUpload, !! 두개로 nullsafty를 해준다..
-        storageRef?.putFile(photoUri!!)?.addOnSuccessListener {
-            Toast.makeText(this, "upload success!", Toast.LENGTH_LONG).show()
+        // Promise 방식으로 upload 하는법 -(Google 권장 방식임)
+        storageRef?.putFile(photoUri!!)?.continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+            return@continueWithTask storageRef.downloadUrl
+        }?.addOnSuccessListener { uri ->
+            var contentDTO = ContentDTO()
+
+            // Insert downloadUrl of image
+            contentDTO.imageUrl = uri.toString()
+
+            // Insert uid of user
+            contentDTO.uid = auth?.currentUser?.uid
+
+            // Insert userid
+            contentDTO.userId = auth?.currentUser?.email
+
+            // Insert explain of content
+            contentDTO.explain = item_describe_et.text.toString()
+
+            // Insert TimeStamp
+            contentDTO.timestamp = System.currentTimeMillis()
+
+            firestore?.collection("images")?.document()?.set(contentDTO)
+
+            // 정상적으로 화면이 닫혔다는 값을 넘겨주기 위해서 setResult값을 RESULT_OK로 설정
+            setResult(Activity.RESULT_OK)
+
             // upload 창 stack에서 삭제, 즉 뒤로가기버튼
             finish()
         }
-    }
 
+        // Callback 방식으로 FileUpload, !! 두개로 nullsafty를 해준다..
+//        storageRef?.putFile(photoUri!!)?.addOnSuccessListener {
+//            Toast.makeText(this, "upload success!", Toast.LENGTH_LONG).show()
+//
+//            storageRef.downloadUrl.addOnSuccessListener { uri ->
+//                var contentDTO = ContentDTO()
+//
+//                // Insert downloadUrl of image
+//                contentDTO.imageUrl = uri.toString()
+//
+//                // Insert uid of user
+//                contentDTO.uid = auth?.currentUser?.uid
+//
+//                // Insert userid
+//                contentDTO.userId = auth?.currentUser?.email
+//
+//                // Insert explain of content
+//                contentDTO.explain = item_describe_et.text.toString()
+//
+//                // Insert TimeStamp
+//                contentDTO.timestamp = System.currentTimeMillis()
+//
+//                firestore?.collection("images")?.document()?.set(contentDTO)
+//
+//                // 정상적으로 화면이 닫혔다는 값을 넘겨주기 위해서 setResult값을 RESULT_OK로 설정
+//                setResult(Activity.RESULT_OK)
+//
+//                // upload 창 stack에서 삭제, 즉 뒤로가기버튼
+//                finish()
+//            }
+//        }
+    }
 }

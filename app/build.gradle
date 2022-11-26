@@ -39,7 +39,9 @@ android {
 }
 
 dependencies {
+    // 게시글 데이터 정보하기위해서 필요한 firebase 빌드들
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
 
     // chanjin's dependencies
     def nav_version = "2.5.2"
