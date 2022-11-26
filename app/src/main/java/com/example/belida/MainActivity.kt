@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, NicknameActivity::class.java)
+                val intent = Intent(this, LocationActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         userDB.push().setValue(User(userEmail, "", userNickName, "", token.toString()))
                     }
                 }
-                val intent = Intent(this, NicknameActivity::class.java)
+                val intent = Intent(this, LocationActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
