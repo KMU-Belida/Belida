@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.belida.database.User
+import kotlinx.android.synthetic.main.user_layout.view.*
 
 class UserAdapter(private val context: Context, private val userList: ArrayList<User>):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
@@ -32,6 +33,7 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
 
             //화면에 데이터 보여주기
             holder.nameText.text = currentUser.userName
+            holder.stateText.text = currentUser.userEmail
 
             //아이템 클릭 이벤트
             holder.itemView.setOnClickListener{
@@ -55,5 +57,6 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
         class UserViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
             val nameText: TextView = itemView.findViewById(R.id.name_text)
+            val stateText: TextView = itemView.findViewById(R.id.state_text)
         }
     }
