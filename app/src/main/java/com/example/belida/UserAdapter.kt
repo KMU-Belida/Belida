@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +27,27 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
         */
         override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
+            //데이터 담기
             val currentUser = userList[position]
+
+            //화면에 데이터 보여주기
             holder.nameText.text = currentUser.userName
+
+            //아이템 클릭 이벤트
+            holder.itemView.setOnClickListener{
+                val intent = Intent(context, ChatActivity::class.java)
+
+                //넘길 데이터
+                intent.putExtra("name", currentUser.userName)
+                intent.putExtra("uId", currentUser.userToken)
+
+                context.startActivity(intent)
+            }
         }
 
+        /**
+         * 데이터 갯수 가져오기기
+        */
         override fun getItemCount(): Int {
             return userList.size
         }
