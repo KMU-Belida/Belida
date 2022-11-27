@@ -4,6 +4,9 @@ import java.sql.Timestamp
 
 data class ContentDTO(var explain : String? = null,
                       var imageUrl : String? = null,
+                      var itemname : String? = null,
+                      var category : String? = null,
+                      var price : String? = null,
                       //누가 올렸는지 확인하기 위한 uid (email값 아님!)
                       var uid : String? = null,
                       // 올린 유저의 이미지 관리를 위한 변수 userId (email값임)

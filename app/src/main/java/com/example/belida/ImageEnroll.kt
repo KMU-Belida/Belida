@@ -89,6 +89,9 @@ class ImageEnroll : AppCompatActivity(){
     fun contentUpload(){
         // view에서 필요한거 가져오기
         var item_describe_et = findViewById(R.id.item_describe_et) as EditText
+        var item_name_et = findViewById(R.id.item_name_et) as EditText
+        var item_categori_et = findViewById(R.id.item_category_et) as EditText
+        var item_price_et = findViewById(R.id.item_price_et) as EditText
 
         // Make filename
         var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -113,6 +116,11 @@ class ImageEnroll : AppCompatActivity(){
 
             // Insert explain of content
             contentDTO.explain = item_describe_et.text.toString()
+
+            // Insert itemname, categori, price
+            contentDTO.itemname = item_name_et.text.toString()
+            contentDTO.category = item_categori_et.text.toString()
+            contentDTO.price = item_price_et.text.toString()
 
             // Insert TimeStamp
             contentDTO.timestamp = System.currentTimeMillis()
