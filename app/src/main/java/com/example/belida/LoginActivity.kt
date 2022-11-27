@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 사용하고싶은 객체를 바인딩으로 생성해야하나?
         val login_button: Button = findViewById(R.id.email_login_button)
-
         // 로그인 버튼이 눌렸을 경우 이벤트 처리 하는 곳
         login_button.setOnClickListener {
             signinAndSignup()
@@ -45,7 +44,11 @@ class LoginActivity : AppCompatActivity() {
                         // Creating a user account
                         Toast.makeText(this, "회원가입 및 로그인 완료!", Toast.LENGTH_LONG).show()
                         moveMainPage(task.result.user)
-                        userDB.push().setValue(User(emailEdit.text.toString(), passwordEdit.text.toString(), "", "", ""))
+                        val userKey = userDB.push().key.toString()
+                        userDB.child(userKey).setValue(User(emailEdit.text.toString(), passwordEdit.text.toString(), "", "", ""))
+                        val userKeyIntent = Intent(this, NicknameActivity::class.java)
+                        userKeyIntent.putExtra("UserKey", userKey)
+                        startActivity(userKeyIntent)
 //                    }else if(!task.exception?.message.isNullOrEmpty()){
 //                        // show login error message
 //                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
