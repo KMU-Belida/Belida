@@ -146,7 +146,8 @@ class MainActivity : AppCompatActivity() {
                 if (!isDuplicate) {
                     pushEmailDB(userEmail, userNickName, token)
                 } else {
-                    moveMainPage()
+                    // moveMainPage()
+                    moveChatPage(userEmail, userNickName)
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -160,5 +161,13 @@ class MainActivity : AppCompatActivity() {
     // 메인페이지로 이동
     fun moveMainPage(){
         startActivity(Intent(this, NaviActivity::class.java))
+    }
+
+    // 채팅페이지로 이동
+    fun moveChatPage(userEmail: String, userNickName: String) {
+        val userEmailIntent = Intent(this, ChatListActivity::class.java)
+        userEmailIntent.putExtra("UserEmail", userEmail)
+        userEmailIntent.putExtra("UserNickname", userNickName)
+        startActivity(userEmailIntent)
     }
 }
