@@ -37,7 +37,7 @@ class NicknameActivity : AppCompatActivity() {
         val userKey = intent.getStringExtra("UserKey")
         val nickNameEdit: EditText = findViewById(R.id.nickname)
         val nickName = nickNameEdit.text.toString()
-        if (userKey != null) {
+        if (userKey != null && checkNickNameBlank(nickName)) {
             userDB.child(userKey).child("userNickName").setValue("")
             checkNicknameDuplicate(nickName, userKey)
         }
@@ -73,6 +73,13 @@ class NicknameActivity : AppCompatActivity() {
             })
     }
 
+    fun checkNickNameBlank (nickName : String): Boolean {
+        if (nickName.equals("")) {
+            Toast.makeText(applicationContext, "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
     fun moveMainPage(){
         startActivity(Intent(this, NaviActivity::class.java))
     }
