@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.belida.database.User
 import kotlinx.android.synthetic.main.user_layout.view.*
 
-class UserAdapter(private val context: Context, private val userList: ArrayList<User>, private val userLoginedEmail: String, private val userLoginedNickname: String):
+class UserAdapter(private val context: Context, private val userList: ArrayList<User>, private val userLoginedEmail: String, private val userLoginedName: String):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
         /**
@@ -44,7 +44,7 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
 
                 //넘길 데이터
                 intent.putExtra("UserLoginedEmail", userLoginedEmail)
-                intent.putExtra("UserLoginedNickname", userLoginedNickname)
+                intent.putExtra("UserLoginedName", userLoginedName)
                 intent.putExtra("opponentName", currentUser.userName)
                 intent.putExtra("opponentEmail", currentUser.userToken)
 

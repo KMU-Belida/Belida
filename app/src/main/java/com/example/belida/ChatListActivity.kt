@@ -31,7 +31,7 @@ class ChatListActivity: AppCompatActivity() {
 
         // 현재 로그인한 유저
         val userLoginedEmail = intent.getStringExtra("UserEmail")
-        val userLoginedNickname = intent.getStringExtra("UserNickname")
+        val userLoginedName = intent.getStringExtra("UserName")
 
         //db 초기화
         mDbRef = Firebase.database.reference
@@ -40,7 +40,7 @@ class ChatListActivity: AppCompatActivity() {
         userList = ArrayList()
 
         // adapter 초기화
-        adapter = UserAdapter(this, userList, userLoginedEmail!!, userLoginedNickname!!)
+        adapter = UserAdapter(this, userList, userLoginedEmail!!, userLoginedName!!)
 
         // layout은 LinearLayout으로 설정
         binding.userRecycelrView.layoutManager = LinearLayoutManager(this)

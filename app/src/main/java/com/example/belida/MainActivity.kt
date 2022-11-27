@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
     fun moveChatPage(userEmail: String, userNickName: String) {
         val userEmailIntent = Intent(this, ChatListActivity::class.java)
         userEmailIntent.putExtra("UserEmail", userEmail)
-        userEmailIntent.putExtra("UserNickname", userNickName)
+        userEmailIntent.putExtra("UserName", userNickName)
         startActivity(userEmailIntent)
     }
 }
