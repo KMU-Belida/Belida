@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.belida.database.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, LocationActivity::class.java)
+                val intent = Intent(this, NicknameActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -77,12 +81,13 @@ class MainActivity : AppCompatActivity() {
                         // val userId = user.id
                         val userEmail = user.kakaoAccount?.email.toString()
                         val userNickName = user.kakaoAccount?.profile?.nickname.toString()
-                        userDB.push().setValue(User(userEmail, "", userNickName, "", token.toString()))
+                        checkEmailDuplicate(userEmail, userNickName, token.toString())
+                        finish()
                     }
                 }
-                val intent = Intent(this, LocationActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+//                val intent = Intent(this, NicknameActivity::class.java)
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                finish()
             }
         }
 
@@ -112,5 +117,48 @@ class MainActivity : AppCompatActivity() {
             moveEmailLoginPage()
         }
 
+    }
+
+    // 새로운 유저일 경우 DB에 유저 정보 넣기
+    fun pushEmailDB(userEmail : String, userNickName : String, token : String) {
+        val userKey = userDB.push().key.toString()
+        userDB.child(userKey).setValue(User(userEmail, "", userNickName, "", token))
+        val userKeyIntent = Intent(this, NicknameActivity::class.java)
+        userKeyIntent.putExtra("UserKey", userKey)
+        startActivity(userKeyIntent)
+    }
+
+    // 새로운 유저인지 확인하기 위해 이메일 중복 확인
+    fun checkEmailDuplicate(userEmail: String, userNickName: String, token: String) {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var isDuplicate = false
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(!targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
+                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
+                        continue
+                    } else {
+                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
+                        isDuplicate = true
+                        break
+                    }
+                }
+                if (!isDuplicate) {
+                    pushEmailDB(userEmail, userNickName, token)
+                } else {
+                    moveMainPage()
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                        databaseError.message,
+                        Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // 메인페이지로 이동
+    fun moveMainPage(){
+        startActivity(Intent(this, NaviActivity::class.java))
     }
 }
