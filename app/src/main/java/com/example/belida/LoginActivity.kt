@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
     fun moveMainPage(user:FirebaseUser?){
         // user 상태가 존재하면 다음페이지로 넘겨주기
         if(user != null){
-            startActivity(Intent(this, NaviActivity::class.java))
+            startActivity(Intent(this, LocationActivity::class.java))
         }
     }
 }

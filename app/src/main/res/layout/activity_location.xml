@@ -70,19 +70,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/location_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="42dp"
-        android:background="@drawable/gps_btn"
-
-        android:minWidth="36dp"
-        android:minHeight="36dp"
+        android:src="@drawable/gps_btn"
+        android:backgroundTint="@color/main_purple"
+        app:tint="@android:color/white"
+        app:fabSize="mini"
         app:layout_constraintStart_toEndOf="@+id/location_textView"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/location_next_btn"
@@ -92,10 +92,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button_main"
-        android:text="계속하기"
+        android:text="현재 위치로 동네 변경하기"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto"
         app:layout_constraintTop_toBottomOf="@+id/location_textView" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

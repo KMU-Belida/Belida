@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -14,6 +15,8 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_location.*
 
 private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -24,7 +27,7 @@ class LocationActivity : AppCompatActivity() {
 
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
-        val locationButton: AppCompatImageButton = findViewById(R.id.location_btn)
+        val locationButton: FloatingActionButton = findViewById(R.id.location_btn)
         val user_location = findViewById<TextView>(R.id.location_textView)
         // 마지막 위치를 가져오기 위함
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -76,10 +79,15 @@ class LocationActivity : AppCompatActivity() {
                     user_location.text = addr[0].adminArea
                     Log.d("Test", "GPS Location changed, $addr")
                     fusedLocationClient.removeLocationUpdates(locationCallback);
+                    if(user_location.text != "주소"){
+                        location_next_btn.setOnClickListener {
+                            val intent = Intent(this, NaviActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 }
             }
-
         }
-
     }
 }
