@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_layout_banner.view.*
 
-class ViewPagerAdapter(private val interaction: Interaction) :
+class ViewPagerAdapter(val interaction: Interaction) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val ITEM_COUNT = 5
@@ -31,7 +31,6 @@ class ViewPagerAdapter(private val interaction: Interaction) :
         }
     }
 
-    //functions
     fun submitList(list: List<BannerItem>?) {
         bannerItemList = list
         notifyDataSetChanged()

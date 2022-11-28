@@ -1,6 +1,6 @@
 package com.example.belida
 
-val fakeBannerItemList = listOf(
+val fakeBannerItemList = arrayListOf<BannerItem>(
     BannerItem(R.drawable.first),
     BannerItem(R.drawable.second),
     BannerItem(R.drawable.third),
@@ -8,7 +8,7 @@ val fakeBannerItemList = listOf(
     BannerItem(R.drawable.fifth)
 )
 
-val fakeGridItemList = listOf(
+val fakeGridItemList = arrayListOf<GridItem>(
     GridItem(R.drawable.monitor, "디지털기기"),
     GridItem(R.drawable.sport, "레저/스포츠"),
     GridItem(R.drawable.clothes, "의류/잡화"),

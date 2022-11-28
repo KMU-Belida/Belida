@@ -3,7 +3,6 @@ package com.example.belida
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_filter.*
 
 class Filter : AppCompatActivity() {

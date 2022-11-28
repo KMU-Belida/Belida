@@ -3,6 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.15833333333333333" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_close_black_24.xml" value="0.234" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_dehaze_black_24.xml" value="0.202" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_navi_category.xml" value="0.2865" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_navi_chat.xml" value="0.2605" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_navi_home.xml" value="0.202" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_navi_mypage.xml" value="0.2605" />
+        <entry key="../Belida/app/src/main/res/drawable/ic_search_black_24.xml" value="0.202" />
+        <entry key="../Belida/app/src/main/res/drawable/menu_click_color.xml" value="0.2605" />
+        <entry key="../Belida/app/src/main/res/drawable/navi_plus.xml" value="0.2605" />
+        <entry key="../Belida/app/src/main/res/drawable/rectangle_all_corner_gray_radius.xml" value="0.202" />
+        <entry key="../Belida/app/src/main/res/drawable/rectangle_all_corner_radius.xml" value="0.202" />
+        <entry key="../Belida/app/src/main/res/drawable/selector_radio_button.xml" value="0.234" />
+        <entry key="../Belida/app/src/main/res/drawable/selector_radio_text.xml" value="0.234" />
+        <entry key="../Belida/app/src/main/res/drawable/white_rectangle_radius.xml" value="0.1" />
+        <entry key="../Belida/app/src/main/res/layout/activity_category.xml" value="0.1" />
+        <entry key="../Belida/app/src/main/res/layout/activity_event.xml" value="0.1734375" />
+        <entry key="../Belida/app/src/main/res/layout/activity_filter.xml" value="0.1" />
+        <entry key="../Belida/app/src/main/res/layout/activity_home_search.xml" value="0.25" />
+        <entry key="../Belida/app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/activity_navi.xml" value="0.19156036376953128" />
+        <entry key="../Belida/app/src/main/res/layout/content_main.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/declare.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/declare_fragment1.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/fragment_category.xml" value="0.1" />
+        <entry key="../Belida/app/src/main/res/layout/fragment_chatting.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="../Belida/app/src/main/res/layout/fragment_my_page.xml" value="0.28229166666666666" />
+        <entry key="../Belida/app/src/main/res/layout/fragment_second.xml" value="0.13229166666666667" />
+        <entry key="../Belida/app/src/main/res/layout/home_page.xml" value="0.165" />
+        <entry key="../Belida/app/src/main/res/layout/item_enroll.xml" value="0.13229166666666667" />
+        <entry key="../Belida/app/src/main/res/layout/item_layout_banner.xml" value="0.13229166666666667" />
+        <entry key="../Belida/app/src/main/res/layout/item_layout_grid.xml" value="0.25" />
+        <entry key="../Belida/app/src/main/res/layout/location.xml" value="0.13229166666666667" />
+        <entry key="../Belida/app/src/main/res/layout/viewpagerfragment.xml" value="0.13055555555555556" />
+        <entry key="../Belida/app/src/main/res/menu/navi_menu.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/ic_close_black_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/selector_radio_button.xml" value="0.1" />

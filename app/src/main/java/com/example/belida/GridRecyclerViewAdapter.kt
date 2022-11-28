@@ -1,5 +1,6 @@
 package com.example.belida
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,8 @@ import com.example.belida.R
 import com.example.belida.GridItem
 import kotlinx.android.synthetic.main.item_layout_grid.view.*
 
-class GridRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var gridItemList: List<GridItem>? = null
+class GridRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var gridItemList: List<GridItem>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): RecyclerView.ViewHolder{
         return GridItemViewHolder(
@@ -24,7 +25,7 @@ class GridRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             (holder as GridItemViewHolder).bind(it[position])
         }
     }
-    //functions
+//    functions
     fun submitList(list: List<GridItem>?){
         gridItemList = list
         notifyDataSetChanged()

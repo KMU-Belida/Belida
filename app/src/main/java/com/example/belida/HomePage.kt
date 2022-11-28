@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var gridRecyclerViewAdapter : GridRecyclerViewAdapter
-    private lateinit var viewModel: MainActivityViewModel
+    lateinit var viewModel: MainActivityViewModel
     private var isRunning = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +28,19 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         initViewPager2()
         subscribeObservers()
         autoScrollViewPager()
+        //홈 버튼, 카테고리 버튼, 검색 버튼 인텐트
+        home_btn.setOnClickListener {
+            val intent = Intent(this,HomePage::class.java)
+            startActivity(intent)
+        }
+        category_btn.setOnClickListener {
+            val intent = Intent(this,Category::class.java)
+            startActivity(intent)
+        }
+        home_search_btn.setOnClickListener{
+            val intent = Intent(this,HomeSearch::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initViewPager2() {

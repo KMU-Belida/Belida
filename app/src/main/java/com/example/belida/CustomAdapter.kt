@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class CustomAdapter(
-    private val context: Context, private val dataList:ArrayList<DataVo>
+    val context: Context, val dataList: ArrayList<DataVo>
 ):RecyclerView.Adapter<CustomAdapter.ItemViewHolder>(){
     var mPosition = 0
 

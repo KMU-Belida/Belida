@@ -63,4 +63,13 @@
         android:background="@drawable/rectangle_all_corner_radius"
         android:nestedScrollingEnabled="false"
         android:padding="10dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="98dp" />
 </RelativeLayout>

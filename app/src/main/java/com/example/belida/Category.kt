@@ -3,17 +3,11 @@ package com.example.belida
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.activity_category.category_btn
+import kotlinx.android.synthetic.main.activity_category.home_btn
 import kotlinx.android.synthetic.main.home_page.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class Category : AppCompatActivity() {
 
@@ -41,22 +35,18 @@ class Category : AppCompatActivity() {
         val gridLayoutManager = GridLayoutManager(applicationContext,3)
         gridRecyclerView1.layoutManager = gridLayoutManager
 
+        home_btn.setOnClickListener {
+            val intent = Intent(this,HomePage::class.java)
+            startActivity(intent)
+        }
+        category_btn.setOnClickListener {
+            val intent = Intent(this,Category::class.java)
+            startActivity(intent)
+        }
+
         back_category_btn.setOnClickListener {
             finish()
         }
-//        var data:MutableList<ListData> = setData()
-//        var adapter = CustomAdapter()
-//        adapter.listData = data
-//        gridRecyclerView1.adapter = adapter
-//        gridRecyclerView1.layoutManager = LinearLayoutManager(this)
     }
-//    fun setData():MutableList<ListData>{
-//        var data:MutableList<ListData> = mutableListOf()
-//        for(num in 1..10){
-//            var cat_title = "${num}번째 타이틀"
-//            var listdata = ListData(num,cat_title)
-//            data.add(listdata)
-//        }
-//        return data
-//    }
-}
+
+ }
