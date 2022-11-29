@@ -81,6 +81,6 @@ class NicknameActivity : AppCompatActivity() {
         return true
     }
     fun moveMainPage(){
-        startActivity(Intent(this, NaviActivity::class.java))
+        startActivity(Intent(this, HomePage::class.java))
     }
 }
