@@ -4,9 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.belida.databinding.ActivityNaviBinding
@@ -14,7 +11,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import java.util.jar.Manifest
 
 private const val TAG_HOME = "home_fragment"
 private const val TAG_CATEGORY = "category_fragment"
@@ -41,18 +37,13 @@ class NaviActivity : AppCompatActivity() {
             true
         }
 
-        // add button 객채 만들기 kotilin 에서는 as로 업캐스팅해줌 자바는 c++처럼 강제 형변환 형태
+        // add button 객채 만들기 kotilin에서는 as로 업캐스팅해줌 자바는 c++처럼 강제 형변환 형태
         val add_button = findViewById(R.id.addButton) as FloatingActionButton
 
         // add button 눌렸을 경우
         add_button.setOnClickListener {
-            // 권한 확인?? 어케함
-            // if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PakageManager.PERMISSION_GRANTED)
             moveAddPage()
         }
-
-        // 이미지 저장 허용?
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
     }
 
