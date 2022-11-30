@@ -45,32 +45,32 @@ class NicknameActivity : AppCompatActivity() {
 
     fun checkNicknameDuplicate(nickName : String, userKey : String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    var isDuplicate = false
-                    for (targetSnapshot in dataSnapshot.children) {
-                        if(!targetSnapshot.getValue(User::class.java)?.userNickName.equals(nickName)) {
-                            // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
-                            continue
-                        } else {
-                            // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
-                            isDuplicate = true
-                            break
-                        }
-                    }
-                    if (!isDuplicate) {
-                        Toast.makeText(applicationContext, "닉네임 등록 완료", Toast.LENGTH_SHORT).show()
-                        userDB.child(userKey).child("userNickName").setValue(nickName)
-                        moveMainPage()
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var isDuplicate = false
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(!targetSnapshot.getValue(User::class.java)?.userNickName.equals(nickName)) {
+                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
+                        continue
                     } else {
-                        Toast.makeText(applicationContext, "중복된 닉네임 존재.", Toast.LENGTH_SHORT).show()
+                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
+                        isDuplicate = true
+                        break
                     }
                 }
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Toast.makeText(applicationContext,
-                        databaseError.message,
-                        Toast.LENGTH_SHORT).show()
+                if (!isDuplicate) {
+                    Toast.makeText(applicationContext, "닉네임 등록 완료", Toast.LENGTH_SHORT).show()
+                    userDB.child(userKey).child("userNickName").setValue(nickName)
+                    moveLocationPage()
+                } else {
+                    Toast.makeText(applicationContext, "중복된 닉네임 존재.", Toast.LENGTH_SHORT).show()
                 }
-            })
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                    databaseError.message,
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun checkNickNameBlank (nickName : String): Boolean {
@@ -80,7 +80,7 @@ class NicknameActivity : AppCompatActivity() {
         }
         return true
     }
-    fun moveMainPage(){
-        startActivity(Intent(this, HomePage::class.java))
+    fun moveLocationPage(){
+        startActivity(Intent(this, LocationActivity::class.java))
     }
 }

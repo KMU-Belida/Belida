@@ -4,6 +4,8 @@
     package="com.example.belida">
     <!-- 인터넷 사용 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".GlobalApplication"
@@ -16,9 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Belida"
         tools:targetApi="31">
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
 
         <activity
             android:name=".MainActivity"
@@ -44,6 +48,13 @@
 
         <activity
             android:name=".NicknameActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".LocationActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -76,12 +87,17 @@
         <activity android:name=".OptionFragment2"></activity>
 
         <activity android:name=".ImageEnroll"></activity>
+
+        <!--google map api-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDDLaUnmVtHIAKj6Mt22vkUv-kjRA3dl1s" />
+
         <activity android:name=".Category"></activity>
         <activity android:name=".EventActivity"></activity>
         <activity android:name="Filter"></activity>
         <activity android:name=".HomePage"></activity>
         <activity android:name=".HomeSearch"></activity>
-
 
 
     </application>
