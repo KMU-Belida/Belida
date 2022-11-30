@@ -34,15 +34,14 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/back" />
 
+
     <ImageButton
         android:id="@+id/photo_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="334dp"
-        android:layout_marginBottom="480dp"
+        android:layout_marginBottom="485dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/image_enroll" />
 
@@ -138,6 +137,17 @@
         android:background="@drawable/white_rectangle_radius"
         android:backgroundTint="@color/white"
         android:text="옵션(2)" />
+
+    <Button
+        android:id="@+id/upload_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/white_rectangle_radius"
+        android:text="upload" />
 
     <EditText
         android:id="@+id/item_describe_et"
