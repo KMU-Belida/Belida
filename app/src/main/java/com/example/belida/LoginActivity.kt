@@ -9,7 +9,11 @@ import android.widget.Toast
 import com.example.belida.database.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -91,5 +95,32 @@ class LoginActivity : AppCompatActivity() {
         if (user != null) {
             startActivity(Intent(this, HomePage::class.java))
         }
+    }
+
+    // 채팅페이지로 이동
+    fun moveChatPage(userEmail: String, userName: String) {
+        val userEmailIntent = Intent(this, ChatListActivity::class.java)
+        userEmailIntent.putExtra("UserEmail", userEmail)
+        userEmailIntent.putExtra("UserName", userName)
+        startActivity(userEmailIntent)
+    }
+
+    fun getUserNickName(userEmail: String) {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
+                        val name = targetSnapshot.getValue(User::class.java)?.userName.toString()
+                        moveChatPage(userEmail, name)
+                        break
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                    databaseError.message,
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
