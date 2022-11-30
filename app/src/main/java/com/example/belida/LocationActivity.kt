@@ -81,7 +81,7 @@ class LocationActivity : AppCompatActivity() {
                     fusedLocationClient.removeLocationUpdates(locationCallback);
                     if(user_location.text != "주소"){
                         location_next_btn.setOnClickListener {
-                            val intent = Intent(this, NaviActivity::class.java)
+                            val intent = Intent(this, HomePage::class.java)
                             startActivity(intent)
                             finish()
                         }

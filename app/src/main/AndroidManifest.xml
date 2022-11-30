@@ -18,8 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Belida"
         tools:targetApi="31">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
 
         <activity
             android:name=".MainActivity"
@@ -34,13 +37,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".NaviActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".PhoneActivity"
             android:exported="true">
@@ -95,6 +92,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDDLaUnmVtHIAKj6Mt22vkUv-kjRA3dl1s" />
+
+        <activity android:name=".Category"></activity>
+        <activity android:name=".EventActivity"></activity>
+        <activity android:name="Filter"></activity>
+        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomeSearch"></activity>
 
 
     </application>
