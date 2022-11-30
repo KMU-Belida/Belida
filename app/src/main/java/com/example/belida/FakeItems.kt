@@ -1,5 +1,7 @@
 package com.example.belida
 
+import com.example.belida.model.ContentDTO
+
 val fakeBannerItemList = arrayListOf<BannerItem>(
     BannerItem(R.drawable.first),
     BannerItem(R.drawable.second),
@@ -7,7 +9,6 @@ val fakeBannerItemList = arrayListOf<BannerItem>(
     BannerItem(R.drawable.fourth),
     BannerItem(R.drawable.fifth)
 )
-
 val fakeGridItemList = arrayListOf<GridItem>(
     GridItem(R.drawable.monitor, "디지털기기"),
     GridItem(R.drawable.sport, "레저/스포츠"),

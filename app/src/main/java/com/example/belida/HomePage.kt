@@ -41,6 +41,10 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val intent = Intent(this,HomeSearch::class.java)
             startActivity(intent)
         }
+        addbtn.setOnClickListener {
+            val intent = Intent(this,ImageEnroll::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initViewPager2() {
