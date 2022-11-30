@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, NicknameActivity::class.java)
+                val intent = Intent(this, HomePage::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -159,6 +159,6 @@ class MainActivity : AppCompatActivity() {
 
     // 메인페이지로 이동
     fun moveMainPage(){
-        startActivity(Intent(this, NaviActivity::class.java))
+        startActivity(Intent(this, HomePage::class.java))
     }
 }
