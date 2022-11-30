@@ -64,12 +64,86 @@
         android:nestedScrollingEnabled="false"
         android:padding="10dp" />
 
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="231dp"
+        android:text="가격"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="141dp"
+        android:text="등급"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
     <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="100dp"
+        android:progress="15"
+        android:max="30"
+        android:id="@+id/price_seekBar"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="98dp" />
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="191dp" />
+
+    <TextView
+        android:id="@+id/price_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="155dp"
+        android:text="가격 값"
+        android:textSize="20sp" />
+
+    <SeekBar
+        android:progress="5"
+        android:max="10"
+        android:id="@+id/grade_seekBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="101dp" />
+    <TextView
+        android:id="@+id/grade_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="65dp"
+        android:text="등급 값"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/main_purple"
+            android:text="필터 적용하기"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+    </RelativeLayout>
 </RelativeLayout>

@@ -8,6 +8,7 @@ class EventActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
+
         iv_close.setOnClickListener {
             finish()
         }
