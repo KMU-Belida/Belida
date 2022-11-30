@@ -22,8 +22,15 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
         <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
         <activity android:name=".LoginActivity" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -39,13 +46,19 @@
         </activity>
 
         <activity
+            android:name=".ChatListActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PhoneActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".NicknameActivity"
             android:exported="true">
@@ -98,8 +111,6 @@
         <activity android:name="Filter"></activity>
         <activity android:name=".HomePage"></activity>
         <activity android:name=".HomeSearch"></activity>
-
-
     </application>
 
 </manifest>
