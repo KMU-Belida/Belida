@@ -60,7 +60,7 @@ class NicknameActivity : AppCompatActivity() {
                 if (!isDuplicate) {
                     Toast.makeText(applicationContext, "닉네임 등록 완료", Toast.LENGTH_SHORT).show()
                     userDB.child(userKey).child("userNickName").setValue(nickName)
-                    moveLocationPage()
+                    moveLocationPage(userKey)
                 } else {
                     Toast.makeText(applicationContext, "중복된 닉네임 존재.", Toast.LENGTH_SHORT).show()
                 }
@@ -80,7 +80,10 @@ class NicknameActivity : AppCompatActivity() {
         }
         return true
     }
-    fun moveLocationPage(){
-        startActivity(Intent(this, LocationActivity::class.java))
+
+    fun moveLocationPage(userKey : String){
+        val userLocationIntent = Intent(this, LocationActivity::class.java)
+        userLocationIntent.putExtra("UserKey", userKey)
+        startActivity(userLocationIntent)
     }
 }
