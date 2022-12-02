@@ -94,6 +94,7 @@ class LocationActivity : AppCompatActivity() {
                     if(user_location.text != "주소"){
                         location_next_btn.setOnClickListener {
                             val intent = Intent(this, HomePage::class.java)
+                            intent.putExtra("UserKey", userKey)
                             startActivity(intent)
                             finish()
                         }

@@ -11,12 +11,14 @@ class MypageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
+
+        val userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
         val accountInfoBtn: AppCompatImageButton = findViewById(R.id.imageButton3)
         val myPostBtn: AppCompatButton = findViewById(R.id.button2)
         val myBorrowBtn: AppCompatButton = findViewById(R.id.button3)
         val myLocationBtn: AppCompatButton = findViewById(R.id.button4)
         accountInfoBtn.setOnClickListener{
-            moveMypageInfo()
+            moveMypageInfo(userKey)
         }
         myPostBtn.setOnClickListener {
             moveMyPostPage()
@@ -29,8 +31,10 @@ class MypageActivity : AppCompatActivity() {
         }
 
     }
-    fun moveMypageInfo(){
-        startActivity(Intent(this, MypageInfo::class.java))
+    fun moveMypageInfo(userKey : String){
+        val intent = Intent(this, MypageInfo::class.java)
+        intent.putExtra("UserKey", userKey)
+        startActivity(intent)
     }
     fun moveMyPostPage(){
         //내가 올린 물품

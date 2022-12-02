@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.belida.database.User
-import kotlinx.android.synthetic.main.user_layout.view.*
 
 class UserAdapter(private val context: Context, private val userList: ArrayList<User>, private val userLoginedEmail: String, private val userLoginedName: String):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
