@@ -3,6 +3,8 @@ package com.example.belida
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.belida.database.Message
@@ -13,6 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_chat.*
 
 
 class ChatActivity : AppCompatActivity() {
@@ -39,6 +42,17 @@ class ChatActivity : AppCompatActivity() {
         // 현재 로그인한 유저 이메일
         val senderName = intent.getStringExtra("UserLoginedName").toString()
         val senderEmail = intent.getStringExtra("UserLoginedEmail").toString()
+
+        val plus_btn: Button = findViewById(R.id.plus_btn)
+
+        plus_btn.setOnClickListener {
+            if(plus_container.visibility == View.GONE){
+                plus_container.visibility = View.VISIBLE
+            }
+            else{
+                plus_container.visibility = View.GONE
+            }
+        }
 
         // 메세지 리스트 초기화
         messageList = ArrayList()
