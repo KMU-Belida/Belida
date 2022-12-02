@@ -41,6 +41,10 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val intent = Intent(this,HomeSearch::class.java)
             startActivity(intent)
         }
+        mypage_btn.setOnClickListener{
+            val intent = Intent(this,MypageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initViewPager2() {

@@ -75,8 +75,12 @@ class LocationActivity : AppCompatActivity() {
                 if(location != null){
                     //addr에 위도 경도값 이용하여 주소 생성하여 저장
                     var addr = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+
+                    //파이어베이스에 저장해야 할 지역구 단위값
+                    var addrLocality = addr[0].adminArea
+
                     //저장된 값의 subLocality가 구 단위, 하지만 외국(에뮬레이터)에서는 adminArea가 최선
-                    user_location.text = addr[0].adminArea
+                    user_location.text = addrLocality
                     Log.d("Test", "GPS Location changed, $addr")
                     fusedLocationClient.removeLocationUpdates(locationCallback);
                     if(user_location.text != "주소"){
