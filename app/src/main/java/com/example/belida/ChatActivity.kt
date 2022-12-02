@@ -48,6 +48,7 @@ class ChatActivity : AppCompatActivity() {
         plus_btn.setOnClickListener {
             if(plus_container.visibility == View.GONE){
                 plus_container.visibility = View.VISIBLE
+                this@ChatActivity.hideKeyboard()
             }
             else{
                 plus_container.visibility = View.GONE
