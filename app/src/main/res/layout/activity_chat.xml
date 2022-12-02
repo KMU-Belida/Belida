@@ -85,55 +85,108 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/plus_container"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="#EBEBEB"
-            android:visibility="gone">
+            android:layout_height="150dp"
+            android:background="#EBEBEB">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/rental"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/rental_btn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/rental"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="대여 신청"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/resource_return"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/return_btn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/resource_return"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="반납 신청"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/nego"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/nego_btn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/nego"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="네고 게임"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/report"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/report_btn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/report"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="유저 신고"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </RelativeLayout>
