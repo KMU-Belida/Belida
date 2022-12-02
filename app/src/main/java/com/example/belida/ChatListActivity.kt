@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.belida.database.User
@@ -13,6 +14,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class ChatListActivity: AppCompatActivity() {
+
+    val database = Firebase.database
+    val userDB = database.getReference("user")
 
     lateinit var binding: ActivityChatlistBinding // 바인딩 객체
     lateinit var adapter: UserAdapter // 어댑터 객체
@@ -30,8 +34,14 @@ class ChatListActivity: AppCompatActivity() {
         // mAuth = Firebase.auth
 
         // 현재 로그인한 유저
-        val userLoginedEmail = intent.getStringExtra("UserEmail")
-        val userLoginedName = intent.getStringExtra("UserName")
+        val userKey = intent.getStringExtra("UserKey").toString()
+        var userLoginedName = ""
+        var userLoginedEmail = ""
+
+        userDB.get().addOnSuccessListener {
+            userLoginedName = it.child(userKey).getValue(User::class.java)?.userName.toString()
+            userLoginedEmail = it.child(userKey).getValue(User::class.java)?.userEmail.toString()
+        }
 
         //db 초기화
         mDbRef = Firebase.database.reference
@@ -40,7 +50,7 @@ class ChatListActivity: AppCompatActivity() {
         userList = ArrayList()
 
         // adapter 초기화
-        adapter = UserAdapter(this, userList, userLoginedEmail!!, userLoginedName!!)
+        adapter = UserAdapter(this, userList, userLoginedEmail, userLoginedName)
 
         // layout은 LinearLayout으로 설정
         binding.userRecycelrView.layoutManager = LinearLayoutManager(this)

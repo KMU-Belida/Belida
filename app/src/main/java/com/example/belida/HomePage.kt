@@ -38,6 +38,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val intent = Intent(this,Category::class.java)
             startActivity(intent)
         }
+        chat_btn.setOnClickListener {
+            val intent = Intent(this,ChatListActivity::class.java)
+            intent.putExtra("UserKey", userKey)
+            startActivity(intent)
+        }
         home_search_btn.setOnClickListener{
             val intent = Intent(this,HomeSearch::class.java)
             startActivity(intent)
