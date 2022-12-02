@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.belida.database.User
@@ -128,27 +127,27 @@ class MainActivity : AppCompatActivity() {
         val userKeyIntent = Intent(this, NicknameActivity::class.java)
         userKeyIntent.putExtra("UserKey", userKey)
         startActivity(userKeyIntent)
+
     }
 
-    // 새로운 유저인지 확인하기 위해 이메일 중복 확인
+    // 새로운 유저인지 확인하기 위해 이메일 중복 확인 후 메인페이지로 이동
     fun checkEmailDuplicate(userEmail: String, userNickName: String, token: String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var isDuplicate = false
+                var userKey = ""
                 for (targetSnapshot in dataSnapshot.children) {
-                    if(!targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
                         // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
-                        continue
-                    } else {
-                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
                         isDuplicate = true
+                        userKey = targetSnapshot.key.toString()
                         break
                     }
                 }
                 if (!isDuplicate) {
                     pushEmailDB(userEmail, userNickName, token)
                 } else {
-                    moveMainPage()
+                    moveMainPage(userKey)
                     // moveChatPage(userEmail, userNickName)
                 }
             }
@@ -161,15 +160,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 메인페이지로 이동
-    fun moveMainPage(){
-        startActivity(Intent(this, HomePage::class.java))
-    }
-
-    // 채팅페이지로 이동
-    fun moveChatPage(userEmail: String, userNickName: String) {
-        val userEmailIntent = Intent(this, ChatListActivity::class.java)
-        userEmailIntent.putExtra("UserEmail", userEmail)
-        userEmailIntent.putExtra("UserName", userNickName)
-        startActivity(userEmailIntent)
+    fun moveMainPage(userKey : String){
+        val userKeyIntent = Intent(this, HomePage::class.java)
+        userKeyIntent.putExtra("UserKey", userKey)
+        startActivity(userKeyIntent)
     }
 }

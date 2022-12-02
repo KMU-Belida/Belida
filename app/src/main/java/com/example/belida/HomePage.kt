@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.home_page.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
@@ -23,6 +22,8 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.setBannerItems(fakeBannerItemList)
         viewModel.setGridItems(fakeGridItemList)
+
+        val userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
 
         iv_hamburger.setOnClickListener(this)
         initViewPager2()
@@ -39,6 +40,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         }
         home_search_btn.setOnClickListener{
             val intent = Intent(this,HomeSearch::class.java)
+            startActivity(intent)
+        }
+        mypage_btn.setOnClickListener{
+            val intent = Intent(this,MypageActivity::class.java)
+            intent.putExtra("UserKey", userKey)
             startActivity(intent)
         }
     }
@@ -88,7 +94,6 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             }
         }
     }
-
 
     override fun onPause() {
         super.onPause()

@@ -13,7 +13,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -49,7 +48,6 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Creating a user account
                     Toast.makeText(this, "회원가입 및 로그인 완료!", Toast.LENGTH_LONG).show()
-                    moveMainPage(task.result.user)
                     val userKey = userDB.push().key.toString()
                     userDB.child(userKey).setValue(
                         User(
@@ -81,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Login
                     Toast.makeText(this, "로그인 완료!", Toast.LENGTH_LONG).show()
-                    moveMainPage(task.result.user)
+                    getUserKeyAndMoveMainPage(task.result.user, emailEdit.text.toString())
                 } else {
                     // 로그인 에러 메세지 보여주기
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
@@ -90,31 +88,27 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 로그인이 성공하면 다음페이지로 넘어가는 함수 구현
-    fun moveMainPage(user: FirebaseUser?) {
+    fun moveMainPage(user: FirebaseUser?, userKey: String) {
         // user 상태가 존재하면 다음페이지로 넘겨주기
         if (user != null) {
-            startActivity(Intent(this, HomePage::class.java))
+            val userKeyIntent = Intent(this, HomePage::class.java)
+            userKeyIntent.putExtra("UserKey", userKey)
+            startActivity(userKeyIntent)
         }
     }
 
-    // 채팅페이지로 이동
-    fun moveChatPage(userEmail: String, userName: String) {
-        val userEmailIntent = Intent(this, ChatListActivity::class.java)
-        userEmailIntent.putExtra("UserEmail", userEmail)
-        userEmailIntent.putExtra("UserName", userName)
-        startActivity(userEmailIntent)
-    }
-
-    fun getUserNickName(userEmail: String) {
+    // 유저 키 가져오기 및 메인 페이지 이동
+    fun getUserKeyAndMoveMainPage(user: FirebaseUser?, userEmail : String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var userKey = ""
                 for (targetSnapshot in dataSnapshot.children) {
                     if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
-                        val name = targetSnapshot.getValue(User::class.java)?.userName.toString()
-                        moveChatPage(userEmail, name)
+                        userKey = targetSnapshot.key.toString()
                         break
                     }
                 }
+                moveMainPage(user, userKey)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(applicationContext,

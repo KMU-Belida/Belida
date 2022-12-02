@@ -16,15 +16,21 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_location.*
 
 private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 class LocationActivity : AppCompatActivity() {
+    private val database = Firebase.database
+    private val userDB = database.getReference("user")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
 
+        val userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
         val locationButton: FloatingActionButton = findViewById(R.id.location_btn)
@@ -75,13 +81,20 @@ class LocationActivity : AppCompatActivity() {
                 if(location != null){
                     //addr에 위도 경도값 이용하여 주소 생성하여 저장
                     var addr = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+
+                    //파이어베이스에 저장해야 할 지역구 단위값
+                    var addrLocality = addr[0].adminArea
+
+                    userDB.child(userKey).child("userLocation").setValue(addrLocality)
+
                     //저장된 값의 subLocality가 구 단위, 하지만 외국(에뮬레이터)에서는 adminArea가 최선
-                    user_location.text = addr[0].adminArea
+                    user_location.text = addrLocality
                     Log.d("Test", "GPS Location changed, $addr")
                     fusedLocationClient.removeLocationUpdates(locationCallback);
                     if(user_location.text != "주소"){
                         location_next_btn.setOnClickListener {
                             val intent = Intent(this, HomePage::class.java)
+                            intent.putExtra("UserKey", userKey)
                             startActivity(intent)
                             finish()
                         }
@@ -90,4 +103,5 @@ class LocationActivity : AppCompatActivity() {
             }
         }
     }
+
 }

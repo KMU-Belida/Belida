@@ -1,9 +1,10 @@
 package com.example.belida.database
 
 data class User(
-    val userEmail : String = "",
-    val userPassword : String = "",
-    val userName : String = "",
-    val userNickName : String = "",
-    val userToken : String = ""
+    var userEmail : String = "",
+    var userPassword : String = "",
+    var userName : String = "",
+    var userNickName : String = "",
+    var userToken : String = "",
+    var userLocation : String = ""
 )
