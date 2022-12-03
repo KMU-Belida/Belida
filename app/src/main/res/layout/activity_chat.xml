@@ -100,7 +100,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/rental_btn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -124,7 +124,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/return_btn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -148,7 +148,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/nego_btn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -171,7 +171,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/report_btn"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
