@@ -89,6 +89,15 @@
         </activity>
 
         <activity
+            android:name=".Rental"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>

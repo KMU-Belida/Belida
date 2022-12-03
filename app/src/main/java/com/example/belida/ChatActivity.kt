@@ -1,11 +1,19 @@
 package com.example.belida
 
+import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.Intent
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.belida.database.Message
 import com.example.belida.databinding.ActivityChatBinding
@@ -16,6 +24,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_chat.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ChatActivity : AppCompatActivity() {
@@ -54,6 +64,14 @@ class ChatActivity : AppCompatActivity() {
                 plus_container.visibility = View.GONE
             }
         }
+
+        //대여 신청 다이얼로그
+        val dialogBtn: Button = findViewById(R.id.rental_btn)
+        dialogBtn.setOnClickListener {
+            val intent = Intent(this,Rental::class.java)
+            startActivity(intent)
+        }
+
 
         // 메세지 리스트 초기화
         messageList = ArrayList()
