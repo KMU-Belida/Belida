@@ -8,12 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/edit_background"
-        android:padding="10dp"
+        android:background="@drawable/send_background"
+        android:padding="20dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -24,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="zㅣ존이수연"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -33,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="님께"
                 android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
         </LinearLayout>
 
@@ -42,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="대여 신청서를 보냈어요."
             android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textSize="14dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textColor="@color/black"
                 android:text="대여 기간: "/>
             <TextView
@@ -60,7 +59,7 @@
                 android:text="12/5 ~ 12/6"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,7 +67,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textColor="@color/black"
                 android:text="예약금: "/>
             <TextView
@@ -77,13 +76,13 @@
                 android:text="3"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="벨리"
+                android:text=" 벨리"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
@@ -92,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textColor="@color/black"
                 android:text="보증금: "/>
             <TextView
@@ -101,13 +100,13 @@
                 android:text="10"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="벨리"
+                android:text=" 벨리"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -117,6 +116,6 @@
             android:layout_marginTop="10dp"
             android:text="상대방의 확정을 대기하는 중입니다."
             android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textSize="14dp"/>
     </LinearLayout>
 </LinearLayout>
