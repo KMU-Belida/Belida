@@ -134,6 +134,7 @@
                     android:textSize="16dp" />
 
                 <EditText
+                    android:id="@+id/reservationToken"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
@@ -164,6 +165,7 @@
                     android:textSize="16dp" />
 
                 <EditText
+                    android:id="@+id/depositToken"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
