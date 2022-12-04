@@ -4,14 +4,16 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/receive_message_text"
+        android:id="@+id/rental_confirm_receive_message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/edit_background"
-        android:padding="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/receive_background"
+        android:padding="15dp"
         android:text="확정 되었습니다."
-        android:textColor="@android:color/holo_purple"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 </RelativeLayout>
