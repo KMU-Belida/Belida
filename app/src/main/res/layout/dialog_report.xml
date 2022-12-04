@@ -28,17 +28,18 @@
             android:text="신고사유를 적어주세요."
             android:textColor="@color/black"
             android:textSize="16dp" />
-        
+
         <EditText
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:background="@drawable/report_background"
-            android:hint="자세한 사유일수록 빠른 처리에 도움이 됩니다."
-            android:textSize="12dp"
-            android:paddingVertical="20dp"
-            android:paddingHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="top" />
+            android:background="@drawable/report_background"
+            android:gravity="top"
+            android:hint="자세한 사유일수록 빠른 처리에 도움이 됩니다."
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            android:textColor="@color/black"
+            android:textSize="12dp" />
     </LinearLayout>
 
     <View
