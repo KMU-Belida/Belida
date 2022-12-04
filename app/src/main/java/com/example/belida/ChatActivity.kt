@@ -56,45 +56,6 @@ class ChatActivity : AppCompatActivity() {
         val senderName = intent.getStringExtra("UserLoginedName").toString()
         val senderEmail = intent.getStringExtra("UserLoginedEmail").toString()
 
-        val plus_btn: Button = findViewById(R.id.plus_btn)
-
-        plus_btn.setOnClickListener {
-            if(plus_container.visibility == View.GONE){
-                plus_container.visibility = View.VISIBLE
-                this@ChatActivity.hideKeyboard()
-            }
-            else{
-                plus_container.visibility = View.GONE
-            }
-        }
-
-        //대여 신청 다이얼로그
-        val rentalBtn: Button = findViewById(R.id.rental_btn)
-        rentalBtn.setOnClickListener {
-            val intent = Intent(this,Rental::class.java)
-            startActivity(intent)
-        }
-
-        //반납 신청 다이얼로그
-        val returnBtn: Button = findViewById(R.id.return_btn)
-        returnBtn.setOnClickListener {
-            val intent = Intent(this,Return::class.java)
-            startActivity(intent)
-        }
-        //네고게임 인데 거래후기로 일단 배치한 다이얼로그
-        val ratingBtn: Button = findViewById(R.id.nego_btn)
-        ratingBtn.setOnClickListener {
-            val intent = Intent(this,Rating::class.java)
-            startActivity(intent)
-        }
-        //유저 신고 다이얼로그
-        val reportBtn: Button = findViewById(R.id.report_btn)
-        reportBtn.setOnClickListener {
-            val intent = Intent(this,Report::class.java)
-            startActivity(intent)
-        }
-
-
         // 메세지 리스트 초기화
         messageList = ArrayList()
         // adapter 초기화
@@ -120,6 +81,48 @@ class ChatActivity : AppCompatActivity() {
         // 액션바에 상대방 이름 보여주기
         val text1 = findViewById<TextView>(R.id.user_name)
         text1.text = receiverName
+
+        val plus_btn: Button = findViewById(R.id.plus_btn)
+
+        plus_btn.setOnClickListener {
+            if(plus_container.visibility == View.GONE){
+                plus_container.visibility = View.VISIBLE
+                this@ChatActivity.hideKeyboard()
+            }
+            else{
+                plus_container.visibility = View.GONE
+            }
+        }
+
+        //대여 신청 다이얼로그
+        val rentalBtn: Button = findViewById(R.id.rental_btn)
+        rentalBtn.setOnClickListener {
+            val intent = Intent(this,Rental::class.java)
+            intent.putExtra("SenderName", senderName)
+            intent.putExtra("ReceiverName", receiverName)
+            intent.putExtra("SenderEmail", senderEmail)
+            intent.putExtra("ReceiverEmail", receiverEmail)
+            startActivity(intent)
+        }
+
+        //반납 신청 다이얼로그
+        val returnBtn: Button = findViewById(R.id.return_btn)
+        returnBtn.setOnClickListener {
+            val intent = Intent(this,Return::class.java)
+            startActivity(intent)
+        }
+        //네고게임 인데 거래후기로 일단 배치한 다이얼로그
+        val ratingBtn: Button = findViewById(R.id.nego_btn)
+        ratingBtn.setOnClickListener {
+            val intent = Intent(this,Rating::class.java)
+            startActivity(intent)
+        }
+        //유저 신고 다이얼로그
+        val reportBtn: Button = findViewById(R.id.report_btn)
+        reportBtn.setOnClickListener {
+            val intent = Intent(this,Report::class.java)
+            startActivity(intent)
+        }
 
         // 메세지 전송 버튼 이벤트
         binding.sendBtn.setOnClickListener {

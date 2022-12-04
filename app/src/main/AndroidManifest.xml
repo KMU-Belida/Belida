@@ -146,6 +146,7 @@
         <activity android:name=".OptionFragment2"></activity>
 
         <activity android:name=".ImageEnroll"></activity>
+        <activity android:name=".RentalConfirm"></activity>
 
         <!--google map api-->
         <meta-data
