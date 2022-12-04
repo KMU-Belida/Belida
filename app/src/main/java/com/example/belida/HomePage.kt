@@ -16,6 +16,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     lateinit var viewModel: MainActivityViewModel
     private var isRunning = true
 
+    // 현재 로그인한 유저의 정보
+    lateinit var userKey: String
+    lateinit var userLoginedName: String
+    lateinit var userLoginedEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
@@ -23,7 +28,9 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setBannerItems(fakeBannerItemList)
         viewModel.setGridItems(fakeGridItemList)
 
-        val userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
+        userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
+        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
         iv_hamburger.setOnClickListener(this)
         initViewPager2()
@@ -41,6 +48,8 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         chat_btn.setOnClickListener {
             val intent = Intent(this,ChatListActivity::class.java)
             intent.putExtra("UserKey", userKey)
+            intent.putExtra("UserName", userLoginedName)
+            intent.putExtra("UserEmail", userLoginedEmail)
             startActivity(intent)
         }
         home_search_btn.setOnClickListener{
