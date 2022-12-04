@@ -1,6 +1,8 @@
 package com.example.belida
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
@@ -14,6 +16,7 @@ class Rental : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_rental)
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         date_start_text.setOnClickListener {
             val cal = Calendar.getInstance()    //캘린더뷰 만들기
@@ -33,7 +36,7 @@ class Rental : Activity() {
             DatePickerDialog(this, dateSetListener, cal_2.get(Calendar.YEAR),cal_2.get(Calendar.MONTH),cal_2.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        btnCancle.setOnClickListener {
+        btnCancel.setOnClickListener {
             //취소 버튼
             finish()
         }
