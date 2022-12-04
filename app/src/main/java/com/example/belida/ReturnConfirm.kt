@@ -16,12 +16,11 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.dialog_rental_confirm.*
+import kotlinx.android.synthetic.main.dialog_return_confirm.*
 
-class RentalConfirm : Activity() {
+class ReturnConfirm : Activity() {
     var dateString = ""
 
-    lateinit var startDate: String
-    lateinit var endDate: String
     lateinit var receiverName: String
     lateinit var receiverEmail: String
     lateinit var senderName: String
@@ -32,15 +31,11 @@ class RentalConfirm : Activity() {
     private val database = Firebase.database
     private val userDB = database.getReference("user")
 
-    companion object {
-        lateinit var reservationToken: String
-        lateinit var depositToken: String
-    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_rental_confirm)
+        setContentView(R.layout.dialog_return_confirm)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         mDbRef = Firebase.database.reference
@@ -49,8 +44,6 @@ class RentalConfirm : Activity() {
         receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
         senderName = intent.getStringExtra("SenderName").toString()
         senderEmail = intent.getStringExtra("SenderEmail").toString()
-        reservationToken = intent.getStringExtra("ReservationToken").toString()
-        depositToken = intent.getStringExtra("DepositToken").toString()
 
         // 현재 로그인한 유저 대화방의 변수
         senderRoom = receiverName + senderName
@@ -58,21 +51,21 @@ class RentalConfirm : Activity() {
         // 상대방 대화방의 변수
         receiverRoom = senderName + receiverName
 
-        borrow_confirm_btn.setOnClickListener {
-            val senderMessage = "대여가 확정되었습니다."
+        return_confirm_okay_btn.setOnClickListener {
+            val senderMessage = "반납 되었습니다."
             insertSenderDB(senderMessage)
 
-            val receiverMessage = "대여가 확정되었습니다."
+            val receiverMessage = "반납 되었습니다."
             insertReceiverDB(receiverMessage)
 
-            subtractBelidaToken()
+            returnBelidaToken()
             finish()
         }
-        borrow_cancel_btn.setOnClickListener {
-            val senderMessage = "대여가 취소되었습니다."
+        return_confirm_cancel_btn.setOnClickListener {
+            val senderMessage = "반납이 취소되었습니다."
             insertSenderDB(senderMessage)
 
-            val receiverMessage = "대여가 취소되었습니다."
+            val receiverMessage = "반납이 취소되었습니다."
             insertReceiverDB(receiverMessage)
             finish()
         }
@@ -103,22 +96,22 @@ class RentalConfirm : Activity() {
             }
     }
 
-    fun subtractBelidaToken() {
+    fun returnBelidaToken() {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (targetSnapshot in dataSnapshot.children) {
                     if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(receiverEmail)) {
                         val currentBelidaToken = targetSnapshot.getValue(User::class.java)?.belidaToken
-                        val totalNeedBelidaToken = reservationToken.toInt() + depositToken.toInt()
+                        val totalReturnBelidaToken = RentalConfirm.reservationToken.toInt() + RentalConfirm.depositToken.toInt()
                         userDB.child(targetSnapshot.key.toString()).child("belidaToken").setValue(
-                            currentBelidaToken?.minus(totalNeedBelidaToken)
+                            currentBelidaToken?.plus(totalReturnBelidaToken)
                         )
 
                     } else if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(senderEmail)) {
                         val currentBelidaToken = targetSnapshot.getValue(User::class.java)?.belidaToken
-                        val totalNeedBelidaToken = reservationToken.toInt() + depositToken.toInt()
+                        val totalReturnBelidaToken = RentalConfirm.reservationToken.toInt() + RentalConfirm.depositToken.toInt()
                         userDB.child(targetSnapshot.key.toString()).child("belidaToken").setValue(
-                            currentBelidaToken?.minus(totalNeedBelidaToken)
+                            currentBelidaToken?.plus(totalReturnBelidaToken)
                         )
                     }
                 }

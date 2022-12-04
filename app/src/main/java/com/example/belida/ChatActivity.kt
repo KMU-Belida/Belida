@@ -109,6 +109,10 @@ class ChatActivity : AppCompatActivity() {
         val returnBtn: Button = findViewById(R.id.return_btn)
         returnBtn.setOnClickListener {
             val intent = Intent(this,Return::class.java)
+            intent.putExtra("SenderName", senderName)
+            intent.putExtra("ReceiverName", receiverName)
+            intent.putExtra("SenderEmail", senderEmail)
+            intent.putExtra("ReceiverEmail", receiverEmail)
             startActivity(intent)
         }
         //네고게임 인데 거래후기로 일단 배치한 다이얼로그

@@ -147,6 +147,7 @@
 
         <activity android:name=".ImageEnroll"></activity>
         <activity android:name=".RentalConfirm"></activity>
+        <activity android:name=".ReturnConfirm"></activity>
 
         <!--google map api-->
         <meta-data
