@@ -81,7 +81,12 @@ class ChatActivity : AppCompatActivity() {
             val intent = Intent(this,Return::class.java)
             startActivity(intent)
         }
-
+        //네고게임 인데 거래후기로 일단 배치한 다이얼로그
+        val ratingBtn: Button = findViewById(R.id.nego_btn)
+        ratingBtn.setOnClickListener {
+            val intent = Intent(this,Rating::class.java)
+            startActivity(intent)
+        }
         //유저 신고 다이얼로그
         val reportBtn: Button = findViewById(R.id.report_btn)
         reportBtn.setOnClickListener {
