@@ -53,32 +53,32 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plus_btn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/navi_plus" />
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/navi_plus"
+                android:backgroundTint="#E5E5E5"/>
 
             <EditText
                 android:id="@+id/message_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:layout_weight="85"
+                android:layout_weight="95"
                 android:background="@drawable/edit_background"
                 android:hint="메시지를 입력하세요"
-                android:paddingStart="10dp" />
+                android:paddingStart="20dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/send_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="15"
-                android:background="@color/main_purple"
-                android:text="전송"
+                android:background="@drawable/ic_chat_send_btn"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -102,16 +102,17 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/rental_btn"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/rental"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="대여 신청"
+                        android:textSize="14dp"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -119,23 +120,24 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/return_btn"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/resource_return"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="반납 신청"
+                        android:textSize="14dp"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -143,23 +145,24 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/nego_btn"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/nego"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="네고 게임"
+                        android:textSize="14dp"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -167,22 +170,23 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/report_btn"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/report"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="유저 신고"
+                        android:textSize="14dp"
                         android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
