@@ -82,6 +82,13 @@ class ChatActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //유저 신고 다이얼로그
+        val reportBtn: Button = findViewById(R.id.report_btn)
+        reportBtn.setOnClickListener {
+            val intent = Intent(this,Report::class.java)
+            startActivity(intent)
+        }
+
 
         // 메세지 리스트 초기화
         messageList = ArrayList()
