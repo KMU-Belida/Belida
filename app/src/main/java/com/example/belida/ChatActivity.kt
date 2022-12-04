@@ -3,6 +3,8 @@ package com.example.belida
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.dialog_return.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -66,9 +69,16 @@ class ChatActivity : AppCompatActivity() {
         }
 
         //대여 신청 다이얼로그
-        val dialogBtn: Button = findViewById(R.id.rental_btn)
-        dialogBtn.setOnClickListener {
+        val rentalBtn: Button = findViewById(R.id.rental_btn)
+        rentalBtn.setOnClickListener {
             val intent = Intent(this,Rental::class.java)
+            startActivity(intent)
+        }
+
+        //반납 신청 다이얼로그
+        val returnBtn: Button = findViewById(R.id.return_btn)
+        returnBtn.setOnClickListener {
+            val intent = Intent(this,Return::class.java)
             startActivity(intent)
         }
 
