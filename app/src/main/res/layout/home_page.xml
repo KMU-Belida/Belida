@@ -198,17 +198,17 @@
 
         <ImageButton
             android:id="@+id/addbtn"
-            android:layout_width="23dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="200dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="180dp"
             android:layout_weight="1"
             android:backgroundTint="@color/main_purple"
             android:clickable="true"
+            android:background="@drawable/add_circle_button"
             android:src="@drawable/navi_plus"
             app:tint="@color/white" />
 
