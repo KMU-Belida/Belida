@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -131,7 +133,11 @@ class Rental : Activity() {
             confirmIntent.putExtra("ReceiverEmail", receiverEmail)
             confirmIntent.putExtra("ReservationToken", reservationToken)
             confirmIntent.putExtra("DepositToken", depositToken)
-            startActivity(confirmIntent)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                //실행할 코드
+                startActivity(confirmIntent)
+            }, 1500)
 
             finish()
         }

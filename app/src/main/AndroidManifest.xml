@@ -104,6 +104,24 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".RentalConfirm"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ReturnConfirm"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".Report"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
@@ -146,8 +164,6 @@
         <activity android:name=".OptionFragment2"></activity>
 
         <activity android:name=".ImageEnroll"></activity>
-        <activity android:name=".RentalConfirm"></activity>
-        <activity android:name=".ReturnConfirm"></activity>
 
         <!--google map api-->
         <meta-data
