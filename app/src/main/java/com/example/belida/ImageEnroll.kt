@@ -66,6 +66,9 @@ class ImageEnroll : AppCompatActivity(){
             val intent = Intent(this,OptionFragment2::class.java)
             startActivity(intent)
         }
+        back_btn.setOnClickListener{
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,7 +78,7 @@ class ImageEnroll : AppCompatActivity(){
         val photo_btn : ImageButton = findViewById((R.id.photo_btn))
 
         if(requestCode == PICK_IMAGE_FROM_ALBUM){
-            if(resultCode == RESULT_OK){
+            if(resultCode == Activity.RESULT_OK){
                 // 사진 선택이 잘 되었을경우, 이미지 경로 이쪽으로 넘어옴
                 photoUri = data?.data
                 photo_btn.setImageURI(photoUri)
@@ -128,7 +131,7 @@ class ImageEnroll : AppCompatActivity(){
             firestore?.collection("images")?.document()?.set(contentDTO)
 
             // 정상적으로 화면이 닫혔다는 값을 넘겨주기 위해서 setResult값을 RESULT_OK로 설정
-            setResult(RESULT_OK)
+            setResult(Activity.RESULT_OK)
 
             // upload 창 stack에서 삭제, 즉 뒤로가기버튼
             finish()

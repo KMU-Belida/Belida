@@ -45,6 +45,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val intent = Intent(this,ImageEnroll::class.java)
             startActivity(intent)
         }
+        item_board_btn.setOnClickListener {
+            var intent = Intent(this, BoardActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun initViewPager2() {

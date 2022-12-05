@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.belida">
     <!-- 인터넷 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,6 +21,28 @@
         <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
         <activity android:name=".LoginActivity"/>
 
+        <activity
+            android:name=".BoardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".ChatListActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+<!--        <meta-data-->
+<!--            android:name="android.app.lib_name"-->
+<!--            android:value="" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -65,7 +88,9 @@
                     android:scheme="@string/kakao_oauth_app_key" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".MypageActivity"></activity>
+        <activity android:name=".MypageInfo"></activity>
         <activity android:name=".Declare"></activity>
         <activity android:name=".DeclareOne"></activity>
         <activity android:name=".DeclareTwo"></activity>

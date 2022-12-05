@@ -1,7 +1,6 @@
 package com.example.belida.model
 
 import java.sql.Timestamp
-//val storeItemList = arrayListOf<ContentDTO>()
 
 data class ContentDTO(var explain : String? = null,
                       var imageUrl : String? = null,
