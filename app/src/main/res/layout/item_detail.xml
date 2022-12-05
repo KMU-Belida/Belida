@@ -1,59 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp">
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/detailviewitem_profile_image"
-            android:src="@mipmap/ic_launcher"
-            android:layout_margin="7.5dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
-        <TextView
-            android:text="User name"
-            android:id="@+id/detailviewitem_profile_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+    android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/detailviewitem_imageview_content"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
-    <LinearLayout
-        android:layout_marginLeft="8dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/detailviewitem_favorite_imageview"
-            android:src="@drawable/ic_favorite_border"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
-        <ImageView
-            android:id="@+id/detailviewitem_comment_imageview"
-            android:src="@drawable/ic_chat_black"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
-    </LinearLayout>
-    <TextView
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:id="@+id/detailviewitem_favoritecounter_textview"
-        android:text="like 0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:id="@+id/detailviewitem_explain_textview"
-        android:text="Explain content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailviewitem_imageview_content"
+        app:srcCompat="@drawable/main_logo" />
+
+    <TextView
+        android:id="@+id/detailviewitem_profile_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="닉네임"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/detailviewitem_imageview_content" />
+
+    <TextView
+        android:id="@+id/detailviewitem_locality_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="성북구"
+        android:textColor="@color/gray"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/detailviewitem_profile_textview" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start_chat_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_main"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="벨리톡"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailviewitem_imageview_content" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/line_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="물품 이름"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/item_category"
+        android:layout_width="53dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="phone"
+        android:textColor="@color/gray"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+
+    <TextView
+        android:id="@+id/detailviewitem_explain_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/roboto"
+        android:text="얼마 사용하지 않아 새 것 같은 상품입니다."
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_category" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/line_view"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="일일 대여료"
+        android:textColor="@color/gray"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/item_price"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="3000원"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

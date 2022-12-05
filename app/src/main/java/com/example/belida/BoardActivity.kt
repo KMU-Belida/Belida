@@ -83,10 +83,10 @@ class BoardActivity : AppCompatActivity() {
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![p1].explain
 
             // likes
-            viewholder.detailviewitem_favoritecounter_textview.text = "Likes " + contentDTOs!![p1].favoriteCount
+//            viewholder.detailviewitem_favoritecounter_textview.text = "Likes " + contentDTOs!![p1].favoriteCount
 
             //ProfileImage
-            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.detailviewitem_profile_image)
+//            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.detailviewitem_profile_image)
 
         }
 
