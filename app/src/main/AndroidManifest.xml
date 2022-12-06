@@ -17,10 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Belida"
         tools:targetApi="31">
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
-        <activity android:name=".LoginActivity"/>
+        <activity
+            android:name=".ItemView"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" /> <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".BoardActivity"
             android:exported="false">
@@ -28,21 +36,18 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ChatActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ChatListActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-<!--        <meta-data-->
-<!--            android:name="android.app.lib_name"-->
-<!--            android:value="" />-->
+        </activity> <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -56,7 +61,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".PhoneActivity"
             android:exported="true">
@@ -64,7 +68,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".NicknameActivity"
             android:exported="true">
@@ -72,7 +75,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -88,29 +90,25 @@
                     android:scheme="@string/kakao_oauth_app_key" />
             </intent-filter>
         </activity>
-        <activity android:name=".LocationActivity"></activity>
-        <activity android:name=".MypageActivity"></activity>
-        <activity android:name=".MypageInfo"></activity>
+        <activity android:name=".LocationActivity" />
+        <activity android:name=".MypageActivity" />
+        <activity android:name=".MypageInfo" />
         <activity android:name=".Declare">
-<!--            android:theme="@android:style/Theme.Material.Light">-->
+
+            <!-- android:theme="@android:style/Theme.Material.Light"> -->
         </activity>
-        <activity android:name=".DeclareOne"></activity>
-        <activity android:name=".DeclareTwo"></activity>
-        <activity android:name=".DeclareThree"></activity>
-        <activity android:name=".DeclareFour"></activity>
-
-        <activity android:name=".OptionFragment"></activity>
-        <activity android:name=".OptionFragment2"></activity>
-
-        <activity android:name=".ImageEnroll"></activity>
-        <activity android:name=".Category"></activity>
-        <activity android:name=".EventActivity"></activity>
-        <activity android:name="Filter"></activity>
-        <activity android:name=".HomePage"></activity>
-        <activity android:name=".HomeSearch"></activity>
-
-
-
+        <activity android:name=".DeclareOne" />
+        <activity android:name=".DeclareTwo" />
+        <activity android:name=".DeclareThree" />
+        <activity android:name=".DeclareFour" />
+        <activity android:name=".OptionFragment" />
+        <activity android:name=".OptionFragment2" />
+        <activity android:name=".ImageEnroll" />
+        <activity android:name=".Category" />
+        <activity android:name=".EventActivity" />
+        <activity android:name=".Filter" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".HomeSearch" />
     </application>
 
 </manifest>
