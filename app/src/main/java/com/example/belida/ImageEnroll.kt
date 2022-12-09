@@ -27,7 +27,7 @@ class ImageEnroll : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.item_enroll1)
+        setContentView(R.layout.item_enroll)
 
         // 사용할 객체 생성해주기
         val upload_btn : Button = findViewById(R.id.upload_btn)
@@ -52,10 +52,10 @@ class ImageEnroll : AppCompatActivity(){
         }
 
         // 상세 설명 버튼들
-        declare_btn.setOnClickListener {
-            val intent = Intent(this, Declare::class.java)
-            startActivity(intent)
-        }
+//        declare_btn.setOnClickListener {
+//            val intent = Intent(this, Declare::class.java)
+//            startActivity(intent)
+//        }
         option1_btn.setOnClickListener {
             val intent = Intent(this,OptionFragment::class.java)
             startActivity(intent)
@@ -64,7 +64,7 @@ class ImageEnroll : AppCompatActivity(){
             val intent = Intent(this,OptionFragment2::class.java)
             startActivity(intent)
         }
-        back_btn.setOnClickListener{
+        back_enroll_btn.setOnClickListener{
             finish()
         }
     }

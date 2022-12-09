@@ -35,14 +35,14 @@
         android:id="@+id/category_view"
         android:layout_width="match_parent"
         android:layout_height="10px"
-        android:layout_marginTop="16dp"
         android:background="#E5E5E5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enroll_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/upload_btn" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/declare_btn"
+        android:id="@+id/upload_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -50,25 +50,167 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_enroll" />
+        app:srcCompat="@drawable/ic_enroll"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/photo_btn"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_view"
-        app:srcCompat="@drawable/image_enroll" />
+        app:srcCompat="@drawable/image_enroll"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
         android:background="#E5E5E5"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="198dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photo_btn" />
+
+    <EditText
+        android:id="@+id/item_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="상품명"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_name_et" />
+
+    <EditText
+        android:id="@+id/item_category_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="카테고리"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_name_et" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_category_et" />
+
+    <EditText
+        android:id="@+id/item_price_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="일일 대여료"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_category_et" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_price_et" />
+
+    <Button
+        android:id="@+id/option1_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/white_rectangle_radius"
+        android:fontFamily="@font/roboto"
+        android:text="상태"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/option2_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_price_et" />
+
+    <Button
+        android:id="@+id/option2_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/white_rectangle_radius"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/roboto"
+        android:text="수량"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/option1_btn"
+        app:layout_constraintTop_toBottomOf="@+id/item_price_et" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="match_parent"
+        android:layout_height="10px"
+        android:layout_marginTop="16dp"
+        android:background="#E5E5E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option1_btn" />
+
+    <EditText
+        android:id="@+id/item_describe_et"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto"
+        android:gravity="top"
+        android:hint="여러 장의 상품 사진, 브랜드, 상품 상태 등 \n대여자에게 필요한 정보를 적어주세요."
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
