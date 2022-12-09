@@ -18,18 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Belida"
         tools:targetApi="31">
+        <activity
+            android:name=".BoardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-        <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
+            android:required="false" /> <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
         <activity
             android:name=".ChatActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
+        </activity> <!-- intent-filter 추가하니깐 그냥 꺼짐? -->
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".MainActivity"
@@ -44,7 +50,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ChatListActivity"
             android:exported="true">
@@ -87,7 +92,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -103,28 +107,23 @@
                     android:scheme="@string/kakao_oauth_app_key" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Declare"></activity>
-        <activity android:name=".DeclareOne"></activity>
-        <activity android:name=".DeclareTwo"></activity>
-        <activity android:name=".DeclareThree"></activity>
-        <activity android:name=".DeclareFour"></activity>
-
-        <activity android:name=".OptionFragment"></activity>
-        <activity android:name=".OptionFragment2"></activity>
-
-        <activity android:name=".ImageEnroll"></activity>
-
-        <!--google map api-->
+        <activity android:name=".Declare" />
+        <activity android:name=".DeclareOne" />
+        <activity android:name=".DeclareTwo" />
+        <activity android:name=".DeclareThree" />
+        <activity android:name=".DeclareFour" />
+        <activity android:name=".OptionFragment" />
+        <activity android:name=".OptionFragment2" />
+        <activity android:name=".ImageEnroll" /> <!-- google map api -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDDLaUnmVtHIAKj6Mt22vkUv-kjRA3dl1s" />
 
-        <activity android:name=".Category"></activity>
-        <activity android:name=".EventActivity"></activity>
-        <activity android:name="Filter"></activity>
-        <activity android:name=".HomePage"></activity>
-        <activity android:name=".HomeSearch"></activity>
+        <activity android:name=".Category" />
+        <activity android:name=".EventActivity" />
+        <activity android:name=".Filter" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".HomeSearch" />
     </application>
 
 </manifest>
