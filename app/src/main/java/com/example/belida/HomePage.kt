@@ -35,6 +35,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     lateinit var viewModel: MainActivityViewModel
     private var isRunning = true
 
+    // 현재 로그인한 유저의 정보
+    lateinit var userKey: String
+    lateinit var userLoginedName: String
+    lateinit var userLoginedEmail: String
+
     //위치 받아오기
     private val database = Firebase.database
     private val userDB = database.getReference("user")
@@ -46,7 +51,12 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setBannerItems(fakeBannerItemList)
         viewModel.setGridItems(fakeGridItemList)
 
+        userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
+        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+
 //        iv_hamburger.setOnClickListener(this)
+
         initViewPager2()
         subscribeObservers()
         autoScrollViewPager()
@@ -57,6 +67,13 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         }
         category_btn.setOnClickListener {
             val intent = Intent(this,Category::class.java)
+            startActivity(intent)
+        }
+        chat_btn.setOnClickListener {
+            val intent = Intent(this,ChatListActivity::class.java)
+            intent.putExtra("UserKey", userKey)
+            intent.putExtra("UserName", userLoginedName)
+            intent.putExtra("UserEmail", userLoginedEmail)
             startActivity(intent)
         }
         home_search_btn.setOnClickListener{
@@ -210,59 +227,4 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
     override fun onClick(v: View?) {
     }
-
-//    override fun onClick(p0: View?) {
-//        p0?.let {
-//            when (it.id) {
-//                R.id.iv_hamburger -> {
-//
-//                }
-//            }
-//        }
-//    }
 }
-
-
-//    private lateinit var appBarConfiguration: AppBarConfiguration
-//    private lateinit var binding: ActivityMainBinding
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        setSupportActionBar(binding.toolbar)
-//
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        return when (item.itemId) {
-//            R.id.action_settings -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        return navController.navigateUp(appBarConfiguration)
-//                || super.onSupportNavigateUp()
-//    }
-//}
