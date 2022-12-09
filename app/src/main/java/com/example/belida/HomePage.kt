@@ -17,8 +17,12 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.belida.database.User
 import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_location.*
@@ -54,6 +58,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
         userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+        getUserLocation() // 위치 정보 가져오기
 
 //        iv_hamburger.setOnClickListener(this)
 
@@ -225,5 +230,12 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     }
 
     override fun onClick(v: View?) {
+    }
+
+    fun getUserLocation() {
+        userDB.get().addOnSuccessListener {
+            user_location.text =
+                it.child(userKey).getValue(User::class.java)?.userLocation.toString()
+        }
     }
 }
