@@ -47,6 +47,10 @@ class Category : AppCompatActivity() {
         back_category_btn.setOnClickListener {
             finish()
         }
+        addbtn1.setOnClickListener {
+            val intent = Intent(this,ImageEnroll::class.java)
+            startActivity(intent)
+        }
     }
 
  }
