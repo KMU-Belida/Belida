@@ -41,8 +41,8 @@ class MypageInfo : AppCompatActivity() {
         userDB.get().addOnSuccessListener {
             userNickname.text =
                 it.child(userKey).getValue(User::class.java)?.userNickName.toString()
-            userName.text = it.child(userKey).getValue(User::class.java)?.userName.toString()
             userEmail.text = it.child(userKey).getValue(User::class.java)?.userEmail.toString()
+            userName.text = ""
             userLocation.text =
                 it.child(userKey).getValue(User::class.java)?.userLocation.toString()
         }

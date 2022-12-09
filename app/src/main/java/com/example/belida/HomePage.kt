@@ -37,7 +37,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
     // 현재 로그인한 유저의 정보
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     //위치 받아오기
@@ -52,7 +52,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setGridItems(fakeGridItemList)
 
         userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
-        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
 //        iv_hamburger.setOnClickListener(this)
@@ -72,7 +72,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         chat_btn.setOnClickListener {
             val intent = Intent(this,ChatListActivity::class.java)
             intent.putExtra("UserKey", userKey)
-            intent.putExtra("UserName", userLoginedName)
+            intent.putExtra("UserNickName", userLoginedNickName)
             intent.putExtra("UserEmail", userLoginedEmail)
             startActivity(intent)
         }
@@ -89,7 +89,6 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             startActivity(intent)
         }
         //위치 가져오기
-        val userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
         val locationButton: ImageButton = findViewById(R.id.locationButton)

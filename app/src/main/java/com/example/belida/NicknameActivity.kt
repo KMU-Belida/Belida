@@ -16,8 +16,9 @@ import com.google.firebase.database.ValueEventListener
 class NicknameActivity : AppCompatActivity() {
     private val database = Firebase.database
     private val userDB = database.getReference("user")
+
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,6 @@ class NicknameActivity : AppCompatActivity() {
         val nickNameRegisterButton: Button = findViewById(R.id.nickname_next_btn)
 
         userKey = intent.getStringExtra("UserKey").toString()
-        userLoginedName = intent.getStringExtra("UserName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
         // 닉네임 등록 버튼을 눌렀을 경우
@@ -57,8 +57,9 @@ class NicknameActivity : AppCompatActivity() {
                 }
                 if (!isDuplicate) {
                     Toast.makeText(applicationContext, "닉네임 등록 완료", Toast.LENGTH_SHORT).show()
-                    userDB.child(userKey).child("userNickName").setValue(nickName)
-                    moveLocationPage(userKey)
+                    userLoginedNickName = nickName
+                    userDB.child(userKey).child("userNickName").setValue(userLoginedNickName)
+                    moveLocationPage()
                 } else {
                     Toast.makeText(applicationContext, "중복된 닉네임 존재.", Toast.LENGTH_SHORT).show()
                 }
@@ -79,10 +80,10 @@ class NicknameActivity : AppCompatActivity() {
         return true
     }
 
-    fun moveLocationPage(userKey : String){
+    fun moveLocationPage(){
         val userLocationIntent = Intent(this, LocationActivity::class.java)
         userLocationIntent.putExtra("UserKey", userKey)
-        userLocationIntent.putExtra("UserName", userLoginedName)
+        userLocationIntent.putExtra("UserNickName", userLoginedNickName)
         userLocationIntent.putExtra("UserEmail", userLoginedEmail)
         startActivity(userLocationIntent)
     }

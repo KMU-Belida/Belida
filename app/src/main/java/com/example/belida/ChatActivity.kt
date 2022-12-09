@@ -33,8 +33,12 @@ import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
 
+    private lateinit var senderNickName: String
+    private lateinit var senderEmail: String
+
+
     // 대화 사람 선택시 상대방 정보 가져오기
-    private lateinit var receiverName: String
+    private lateinit var receiverNickName: String
     private lateinit var receiverEmail: String
 
     // 바인딩 객체
@@ -53,8 +57,8 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 현재 로그인한 유저 이메일
-        val senderName = intent.getStringExtra("UserLoginedName").toString()
-        val senderEmail = intent.getStringExtra("UserLoginedEmail").toString()
+        senderNickName = intent.getStringExtra("UserLoginedNickName").toString()
+        senderEmail = intent.getStringExtra("UserLoginedEmail").toString()
 
         // 메세지 리스트 초기화
         messageList = ArrayList()
@@ -66,21 +70,21 @@ class ChatActivity : AppCompatActivity() {
         binding.chatRecyclerView.adapter = messageAdapter
 
         //넘어온 데이터 변수에 담기
-        receiverName = intent.getStringExtra("opponentName").toString()
-        receiverEmail = intent.getStringExtra("opponentEmail").toString()
+        receiverNickName = intent.getStringExtra("OpponentNickName").toString()
+        receiverEmail = intent.getStringExtra("OpponentEmail").toString()
 
         //db 초기화
         mDbRef = Firebase.database.reference
 
         // 현재 로그인한 유저 대화방의 변수
-        senderRoom = receiverName + senderName
+        senderRoom = receiverNickName + senderNickName
 
         // 상대방 대화방의 변수
-        receiverRoom = senderName + receiverName
+        receiverRoom = senderNickName + receiverNickName
 
         // 액션바에 상대방 이름 보여주기
         val text1 = findViewById<TextView>(R.id.user_name)
-        text1.text = receiverName
+        text1.text = receiverNickName
 
         val plus_btn: Button = findViewById(R.id.plus_btn)
 
@@ -98,8 +102,8 @@ class ChatActivity : AppCompatActivity() {
         val rentalBtn: Button = findViewById(R.id.rental_btn)
         rentalBtn.setOnClickListener {
             val intent = Intent(this,Rental::class.java)
-            intent.putExtra("SenderName", senderName)
-            intent.putExtra("ReceiverName", receiverName)
+            intent.putExtra("SenderNickName", senderNickName)
+            intent.putExtra("ReceiverNickName", receiverNickName)
             intent.putExtra("SenderEmail", senderEmail)
             intent.putExtra("ReceiverEmail", receiverEmail)
             startActivity(intent)
@@ -109,8 +113,8 @@ class ChatActivity : AppCompatActivity() {
         val returnBtn: Button = findViewById(R.id.return_btn)
         returnBtn.setOnClickListener {
             val intent = Intent(this,Return::class.java)
-            intent.putExtra("SenderName", senderName)
-            intent.putExtra("ReceiverName", receiverName)
+            intent.putExtra("SenderNickName", senderNickName)
+            intent.putExtra("ReceiverNickName", receiverNickName)
             intent.putExtra("SenderEmail", senderEmail)
             intent.putExtra("ReceiverEmail", receiverEmail)
             startActivity(intent)

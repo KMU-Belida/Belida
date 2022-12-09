@@ -22,6 +22,10 @@ import java.util.*
 class Rental : Activity() {
     var dateString = ""
 
+    lateinit var receiverNickName: String
+    lateinit var receiverEmail: String
+    lateinit var senderNickName: String
+    lateinit var senderEmail: String
     lateinit var startDate: String
     lateinit var endDate: String
     lateinit var mDbRef: DatabaseReference
@@ -34,19 +38,19 @@ class Rental : Activity() {
 
         mDbRef = Firebase.database.reference
 
-        val receiverName = intent.getStringExtra("ReceiverName").toString()
-        val receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
-        val senderName = intent.getStringExtra("SenderName").toString()
-        val senderEmail = intent.getStringExtra("SenderEmail").toString()
+        receiverNickName = intent.getStringExtra("ReceiverNickName").toString()
+        receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
+        senderNickName = intent.getStringExtra("SenderNickName").toString()
+        senderEmail = intent.getStringExtra("SenderEmail").toString()
 
         // 현재 로그인한 유저 대화방의 변수
-        val senderRoom = receiverName + senderName
+        val senderRoom = receiverNickName + senderNickName
 
         // 상대방 대화방의 변수
-        val receiverRoom = senderName + receiverName
+        val receiverRoom = senderNickName + receiverNickName
 
         val opponentName: TextView = findViewById(R.id.opponentName)
-        opponentName.text = receiverName
+        opponentName.text = receiverNickName
 
         date_start_text.setOnClickListener {
             val cal = Calendar.getInstance()    //캘린더뷰 만들기
@@ -94,7 +98,7 @@ class Rental : Activity() {
             val reservationToken = reservationTokenEdit.text.toString()
             val depositToken = depositTokenEdit.text.toString()
             //보내기 버튼
-            val message = "${receiverName}님께 \n" +
+            val message = "${receiverNickName}님께 \n" +
                     "대여신청서를 보냈어요 \n" +
                     "대여기간 : " + "${startDate} ~ ${endDate} \n" +
                     "예약금 : " + "${reservationToken} 벨리 \n" +
@@ -110,7 +114,7 @@ class Rental : Activity() {
                         .setValue(messageObject)
                 }
 
-            val message2 = "${senderName}님께서 \n" +
+            val message2 = "${senderNickName}님께서 \n" +
                     "대여신청서를 보냈어요 \n" +
                     "대여기간 : " + "$startDate ~ ${endDate} \n" +
                     "예약금 : " + "${reservationToken} 벨리 \n" +
@@ -127,8 +131,8 @@ class Rental : Activity() {
                 }
 
             val confirmIntent = Intent(this, RentalConfirm::class.java)
-            confirmIntent.putExtra("SenderName", senderName)
-            confirmIntent.putExtra("ReceiverName", receiverName)
+            confirmIntent.putExtra("SenderNickName", senderNickName)
+            confirmIntent.putExtra("ReceiverNickName", receiverNickName)
             confirmIntent.putExtra("SenderEmail", senderEmail)
             confirmIntent.putExtra("ReceiverEmail", receiverEmail)
             confirmIntent.putExtra("ReservationToken", reservationToken)
