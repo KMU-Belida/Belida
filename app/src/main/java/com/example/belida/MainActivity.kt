@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.belida.database.User
@@ -24,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     val database = Firebase.database
     val userDB = database.getReference("user")
 
+    lateinit var userKey: String
+    lateinit var userLoginedNickName: String
+    lateinit var userLoginedEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,11 +37,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+                UserApiClient.instance.me { user, _ ->
+                    if (user != null) {
+                        userLoginedEmail = user.kakaoAccount?.email.toString()
+                        getUserKeyAndUserNickName()
 
-                val intent = Intent(this, HomePage::class.java)
-
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    }
+                }
             }
         }
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -81,9 +87,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     else if (user != null) {
                         // val userId = user.id
-                        val userEmail = user.kakaoAccount?.email.toString()
-                        val userNickName = user.kakaoAccount?.profile?.nickname.toString()
-                        checkEmailDuplicate(userEmail, userNickName, token.toString())
+                        userLoginedEmail = user.kakaoAccount?.email.toString()
+//                        val userName = user.kakaoAccount?.profile?.nickname.toString()
+                        checkEmailDuplicate(token.toString())
                         finish()
                     }
                 }
@@ -122,35 +128,55 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 새로운 유저일 경우 DB에 유저 정보 넣기
-    fun pushEmailDB(userEmail : String, userNickName : String, token : String) {
-        val userKey = userDB.push().key.toString()
-        userDB.child(userKey).setValue(User(userEmail, "", userNickName, "", token))
-        val userKeyIntent = Intent(this, NicknameActivity::class.java)
-        userKeyIntent.putExtra("UserKey", userKey)
-        startActivity(userKeyIntent)
+    fun pushEmailDB(token : String) {
+        userKey = userDB.push().key.toString()
+        userDB.child(userKey).setValue(User(userLoginedEmail, "", "", token, ""))
+        val userIntent = Intent(this, NicknameActivity::class.java)
+        userIntent.putExtra("UserKey", userKey)
+        userIntent.putExtra("UserEmail", userLoginedEmail)
+        startActivity(userIntent)
     }
 
-    // 새로운 유저인지 확인하기 위해 이메일 중복 확인
-    fun checkEmailDuplicate(userEmail: String, userNickName: String, token: String) {
+    // 새로운 유저인지 확인하기 위해 이메일 중복 확인 후 메인페이지로 이동
+    fun checkEmailDuplicate(token: String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var isDuplicate = false
                 for (targetSnapshot in dataSnapshot.children) {
-                    if(!targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userLoginedEmail)) {
                         // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
-                        continue
-                    } else {
-                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
                         isDuplicate = true
+                        userKey = targetSnapshot.key.toString()
+                        userLoginedEmail = targetSnapshot.getValue(User::class.java)?.userEmail.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
                         break
                     }
                 }
                 if (!isDuplicate) {
-                    pushEmailDB(userEmail, userNickName, token)
+                    pushEmailDB(token)
                 } else {
                     moveMainPage()
-                    // moveChatPage(userEmail, userNickName)
                 }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                    databaseError.message,
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun getUserKeyAndUserNickName() {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userLoginedEmail)) {
+                        userKey = targetSnapshot.key.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
+                        break
+                    }
+                }
+                moveMainPage()
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(applicationContext,
@@ -162,14 +188,10 @@ class MainActivity : AppCompatActivity() {
 
     // 메인페이지로 이동
     fun moveMainPage(){
-        startActivity(Intent(this, HomePage::class.java))
-    }
-
-    // 채팅페이지로 이동
-    fun moveChatPage(userEmail: String, userNickName: String) {
-        val userEmailIntent = Intent(this, ChatListActivity::class.java)
-        userEmailIntent.putExtra("UserEmail", userEmail)
-        userEmailIntent.putExtra("UserName", userNickName)
-        startActivity(userEmailIntent)
+        val userIntent = Intent(this, HomePage::class.java)
+        userIntent.putExtra("UserKey", userKey)
+        userIntent.putExtra("UserNickName", userLoginedNickName)
+        userIntent.putExtra("UserEmail", userLoginedEmail)
+        startActivity(userIntent)
     }
 }
