@@ -13,12 +13,12 @@ class Category : AppCompatActivity() {
 
     private var userList = arrayListOf<DataVo>(
         DataVo("디지털기기",R.drawable.monitor),
-        DataVo("레저/스포츠",R.drawable.sport),
+        DataVo("스포츠",R.drawable.sport),
         DataVo("의류/잡화",R.drawable.clothes),
         DataVo("생활/주방",R.drawable.pot),
-        DataVo("가구/인테리어",R.drawable.furniture),
-        DataVo("취미/악기/게임",R.drawable.game),
-        DataVo("반려동물용품",R.drawable.dog),
+        DataVo("인테리어",R.drawable.furniture),
+        DataVo("취미/게임",R.drawable.game),
+        DataVo("동물용품",R.drawable.dog),
         DataVo("뷰티/미용",R.drawable.beauty),
         DataVo("유아용완구",R.drawable.child),
         DataVo("도서/음반",R.drawable.book),
