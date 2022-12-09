@@ -37,9 +37,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomePage::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+                UserApiClient.instance.me { user, _ ->
+                    if (user != null) {
+                        userLoginedEmail = user.kakaoAccount?.email.toString()
+                        getUserKeyAndUserNickName()
+
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    }
+                }
             }
         }
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -124,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     // 새로운 유저일 경우 DB에 유저 정보 넣기
     fun pushEmailDB(token : String) {
-        val userKey = userDB.push().key.toString()
+        userKey = userDB.push().key.toString()
         userDB.child(userKey).setValue(User(userLoginedEmail, "", "", token, ""))
         val userIntent = Intent(this, NicknameActivity::class.java)
         userIntent.putExtra("UserKey", userKey)
@@ -152,6 +157,26 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     moveMainPage()
                 }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                    databaseError.message,
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun getUserKeyAndUserNickName() {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userLoginedEmail)) {
+                        userKey = targetSnapshot.key.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
+                        break
+                    }
+                }
+                moveMainPage()
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(applicationContext,
