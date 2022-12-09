@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.belida.model.ContentDTO
 import com.google.android.gms.tasks.Task
@@ -16,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.declare.*
 import kotlinx.android.synthetic.main.item_enroll.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +27,7 @@ class ImageEnroll : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.item_enroll)
+        setContentView(R.layout.item_enroll1)
 
         // 사용할 객체 생성해주기
         val upload_btn : Button = findViewById(R.id.upload_btn)

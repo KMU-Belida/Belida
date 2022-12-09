@@ -91,7 +91,7 @@ class LocationActivity : AppCompatActivity() {
                     var addr = geocoder.getFromLocation(location.latitude, location.longitude, 1)
 
                     //파이어베이스에 저장해야 할 지역구 단위값
-                    var addrLocality = addr[0].adminArea
+                    var addrLocality = addr[0].subLocality
 
                     userDB.child(userKey).child("userLocation").setValue(addrLocality)
 
