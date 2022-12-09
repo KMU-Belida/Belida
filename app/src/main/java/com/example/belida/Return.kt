@@ -27,9 +27,10 @@ import kotlinx.android.synthetic.main.dialog_return.*
 import java.util.*
 
 class Return : Activity() {
-    lateinit var receiverName: String
+
+    lateinit var receiverNickName: String
     lateinit var receiverEmail: String
-    lateinit var senderName: String
+    lateinit var senderNickName: String
     lateinit var senderEmail: String
     lateinit var senderRoom: String
     lateinit var receiverRoom: String
@@ -43,14 +44,14 @@ class Return : Activity() {
         setContentView(R.layout.dialog_return)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        receiverName = intent.getStringExtra("ReceiverName").toString()
+        receiverNickName = intent.getStringExtra("ReceiverNickName").toString()
         receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
-        senderName = intent.getStringExtra("SenderName").toString()
+        senderNickName = intent.getStringExtra("SenderNickName").toString()
         senderEmail = intent.getStringExtra("SenderEmail").toString()
         // 현재 로그인한 유저 대화방의 변수
-        senderRoom = receiverName + senderName
+        senderRoom = receiverNickName + senderNickName
         // 상대방 대화방의 변수
-        receiverRoom = senderName + receiverName
+        receiverRoom = senderNickName + receiverNickName
 
         mDbRef = Firebase.database.reference
 
@@ -60,7 +61,7 @@ class Return : Activity() {
         }
         return_save_btn.setOnClickListener {
             //보내기 버튼
-            val message = "${receiverName}님께 \n" +
+            val message = "${receiverNickName}님께 \n" +
                     "반납신청서를 보냈어요"
 
             // data class에 넣어서 DB에 삽입
@@ -73,7 +74,7 @@ class Return : Activity() {
                         .setValue(messageObject)
                 }
 
-            val message2 = "${senderName}님이 \n" +
+            val message2 = "${senderNickName}님이 \n" +
                     "반납신청서를 보냈어요"
 
             // data class에 넣어서 DB에 삽입
@@ -87,8 +88,8 @@ class Return : Activity() {
                 }
 
             val confirmIntent = Intent(this, ReturnConfirm::class.java)
-            confirmIntent.putExtra("SenderName", senderName)
-            confirmIntent.putExtra("ReceiverName", receiverName)
+            confirmIntent.putExtra("SenderNickName", senderNickName)
+            confirmIntent.putExtra("ReceiverNickName", receiverNickName)
             confirmIntent.putExtra("SenderEmail", senderEmail)
             confirmIntent.putExtra("ReceiverEmail", receiverEmail)
 

@@ -22,9 +22,9 @@ class RentalConfirm : Activity() {
 
     lateinit var startDate: String
     lateinit var endDate: String
-    lateinit var receiverName: String
+    lateinit var receiverNickName: String
     lateinit var receiverEmail: String
-    lateinit var senderName: String
+    lateinit var senderNickName: String
     lateinit var senderEmail: String
     lateinit var senderRoom: String
     lateinit var receiverRoom: String
@@ -45,18 +45,18 @@ class RentalConfirm : Activity() {
 
         mDbRef = Firebase.database.reference
 
-        receiverName = intent.getStringExtra("ReceiverName").toString()
+        receiverNickName = intent.getStringExtra("ReceiverNickName").toString()
         receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
-        senderName = intent.getStringExtra("SenderName").toString()
+        senderNickName = intent.getStringExtra("SenderNickName").toString()
         senderEmail = intent.getStringExtra("SenderEmail").toString()
         reservationToken = intent.getStringExtra("ReservationToken").toString()
         depositToken = intent.getStringExtra("DepositToken").toString()
 
         // 현재 로그인한 유저 대화방의 변수
-        senderRoom = receiverName + senderName
+        senderRoom = receiverNickName + senderNickName
 
         // 상대방 대화방의 변수
-        receiverRoom = senderName + receiverName
+        receiverRoom = senderNickName + receiverNickName
 
         borrow_confirm_btn.setOnClickListener {
             val senderMessage = "대여가 확정되었습니다."

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.belida.database.User
 
-class UserAdapter(private val context: Context, private val userList: ArrayList<User>, private val userLoginedEmail: String, private val userLoginedName: String):
+class UserAdapter(private val context: Context, private val userList: ArrayList<User>, private val userLoginedEmail: String, private val userLoginedNickName: String):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
         /**
@@ -33,7 +33,7 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
             val currentUser = userList[position]
 
             //화면에 데이터 보여주기
-            holder.nameText.text = currentUser.userName
+            holder.nameText.text = currentUser.userNickName
             holder.stateText.text = currentUser.userEmail
 
             //아이템 클릭 이벤트
@@ -43,9 +43,9 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
 
                 //넘길 데이터
                 intent.putExtra("UserLoginedEmail", userLoginedEmail)
-                intent.putExtra("UserLoginedName", userLoginedName)
-                intent.putExtra("opponentName", currentUser.userName)
-                intent.putExtra("opponentEmail", currentUser.userEmail)
+                intent.putExtra("UserLoginedNickName", userLoginedNickName)
+                intent.putExtra("OpponentNickName", currentUser.userNickName)
+                intent.putExtra("OpponentEmail", currentUser.userEmail)
 
                 context.startActivity(intent)
             }

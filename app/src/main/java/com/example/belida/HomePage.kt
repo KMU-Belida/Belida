@@ -21,10 +21,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.belida.database.User
 import com.bumptech.glide.Glide
 import com.example.belida.model.ContentDTO
 import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -54,7 +58,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
     // 현재 로그인한 유저의 정보
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     //위치 받아오기
@@ -69,8 +73,9 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setGridItems(fakeGridItemList)
 
         userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
-        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+        getUserLocation() // 위치 정보 가져오기
 
 //        iv_hamburger.setOnClickListener(this)
 
@@ -89,7 +94,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         chat_btn.setOnClickListener {
             val intent = Intent(this,ChatListActivity::class.java)
             intent.putExtra("UserKey", userKey)
-            intent.putExtra("UserName", userLoginedName)
+            intent.putExtra("UserNickName", userLoginedNickName)
             intent.putExtra("UserEmail", userLoginedEmail)
             startActivity(intent)
         }
@@ -106,7 +111,6 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 //            startActivity(intent)
 //        }
         //위치 가져오기
-        val userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
         val locationButton: ImageButton = findViewById(R.id.locationButton)
@@ -250,6 +254,13 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     override fun onClick(v: View?) {
     }
 
+    fun getUserLocation() {
+        userDB.get().addOnSuccessListener {
+            user_location.text =
+                it.child(userKey).getValue(User::class.java)?.userLocation.toString()
+        }
+    }
+
     // RecyclerView adapter 만들기
     inner class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         // 정보들 담을 리스트 생성
@@ -315,6 +326,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val layoutParams = p0.itemView.layoutParams
             layoutParams.height = 350
             p0.itemView.requestLayout()
+
 
         }
     }
