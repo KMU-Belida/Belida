@@ -45,7 +45,7 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
                 intent.putExtra("UserLoginedEmail", userLoginedEmail)
                 intent.putExtra("UserLoginedName", userLoginedName)
                 intent.putExtra("opponentName", currentUser.userName)
-                intent.putExtra("opponentEmail", currentUser.userToken)
+                intent.putExtra("opponentEmail", currentUser.userEmail)
 
                 context.startActivity(intent)
             }

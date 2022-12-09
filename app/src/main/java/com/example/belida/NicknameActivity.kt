@@ -16,11 +16,19 @@ import com.google.firebase.database.ValueEventListener
 class NicknameActivity : AppCompatActivity() {
     private val database = Firebase.database
     private val userDB = database.getReference("user")
+    lateinit var userKey: String
+    lateinit var userLoginedName: String
+    lateinit var userLoginedEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nickname)
         val nickNameRegisterButton: Button = findViewById(R.id.nickname_next_btn)
+
+        userKey = intent.getStringExtra("UserKey").toString()
+        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+
         // 닉네임 등록 버튼을 눌렀을 경우
         nickNameRegisterButton.setOnClickListener {
             pushNicknameDB()
@@ -29,25 +37,20 @@ class NicknameActivity : AppCompatActivity() {
 
     // 닉네임 값 DB에 넣기
     fun pushNicknameDB() {
-        val userKey = intent.getStringExtra("UserKey")
         val nickNameEdit: EditText = findViewById(R.id.nickname)
         val nickName = nickNameEdit.text.toString()
-        if (userKey != null && checkNickNameBlank(nickName)) {
+        if (checkNickNameBlank(nickName)) {
             userDB.child(userKey).child("userNickName").setValue("")
-            checkNicknameDuplicate(nickName, userKey)
+            checkNicknameDuplicate(nickName)
         }
     }
 
-    fun checkNicknameDuplicate(nickName : String, userKey : String) {
+    fun checkNicknameDuplicate(nickName : String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var isDuplicate = false
                 for (targetSnapshot in dataSnapshot.children) {
-                    if(!targetSnapshot.getValue(User::class.java)?.userNickName.equals(nickName)) {
-                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
-                        continue
-                    } else {
-                        // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복")
+                    if(targetSnapshot.getValue(User::class.java)?.userNickName.equals(nickName)) {
                         isDuplicate = true
                         break
                     }
@@ -79,6 +82,8 @@ class NicknameActivity : AppCompatActivity() {
     fun moveLocationPage(userKey : String){
         val userLocationIntent = Intent(this, LocationActivity::class.java)
         userLocationIntent.putExtra("UserKey", userKey)
+        userLocationIntent.putExtra("UserName", userLoginedName)
+        userLocationIntent.putExtra("UserEmail", userLoginedEmail)
         startActivity(userLocationIntent)
     }
 }

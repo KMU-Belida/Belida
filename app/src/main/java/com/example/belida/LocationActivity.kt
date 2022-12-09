@@ -26,11 +26,19 @@ class LocationActivity : AppCompatActivity() {
     private val database = Firebase.database
     private val userDB = database.getReference("user")
 
+    // 현재 로그인한 유저의 정보
+    lateinit var userKey: String
+    lateinit var userLoginedName: String
+    lateinit var userLoginedEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
 
-        val userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
+        userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
+        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
         val locationButton: FloatingActionButton = findViewById(R.id.location_btn)
@@ -95,6 +103,8 @@ class LocationActivity : AppCompatActivity() {
                         location_next_btn.setOnClickListener {
                             val intent = Intent(this, HomePage::class.java)
                             intent.putExtra("UserKey", userKey)
+                            intent.putExtra("UserName", userLoginedName)
+                            intent.putExtra("UserEmail", userLoginedEmail)
                             startActivity(intent)
                             finish()
                         }

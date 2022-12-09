@@ -6,5 +6,6 @@ data class User(
     var userName : String = "",
     var userNickName : String = "",
     var userToken : String = "",
-    var userLocation : String = ""
+    var userLocation : String = "",
+    var belidaToken : Int = 50 // 벨리다 토큰 50개 지급
 )

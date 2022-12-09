@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-
                 val intent = Intent(this, HomePage::class.java)
-
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -81,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                     else if (user != null) {
                         // val userId = user.id
                         val userEmail = user.kakaoAccount?.email.toString()
-                        val userNickName = user.kakaoAccount?.profile?.nickname.toString()
-                        checkEmailDuplicate(userEmail, userNickName, token.toString())
+                        val userName = user.kakaoAccount?.profile?.nickname.toString()
+                        checkEmailDuplicate(userEmail, userName, token.toString())
                         finish()
                     }
                 }
@@ -121,17 +119,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 새로운 유저일 경우 DB에 유저 정보 넣기
-    fun pushEmailDB(userEmail : String, userNickName : String, token : String) {
+    fun pushEmailDB(userEmail : String, userName : String, token : String) {
         val userKey = userDB.push().key.toString()
-        userDB.child(userKey).setValue(User(userEmail, "", userNickName, "", token))
-        val userKeyIntent = Intent(this, NicknameActivity::class.java)
-        userKeyIntent.putExtra("UserKey", userKey)
-        startActivity(userKeyIntent)
-
+        userDB.child(userKey).setValue(User(userEmail, "", userName, "", token))
+        val userIntent = Intent(this, NicknameActivity::class.java)
+        userIntent.putExtra("UserKey", userKey)
+        userIntent.putExtra("UserName", userName)
+        userIntent.putExtra("UserEmail", userEmail)
+        startActivity(userIntent)
     }
 
     // 새로운 유저인지 확인하기 위해 이메일 중복 확인 후 메인페이지로 이동
-    fun checkEmailDuplicate(userEmail: String, userNickName: String, token: String) {
+    fun checkEmailDuplicate(userEmail: String, userName: String, token: String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var isDuplicate = false
@@ -145,10 +144,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 if (!isDuplicate) {
-                    pushEmailDB(userEmail, userNickName, token)
+                    pushEmailDB(userEmail, userName, token)
                 } else {
-                    moveMainPage(userKey)
-                    // moveChatPage(userEmail, userNickName)
+                    moveMainPage(userKey, userEmail, userName)
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -160,9 +158,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 메인페이지로 이동
-    fun moveMainPage(userKey : String){
-        val userKeyIntent = Intent(this, HomePage::class.java)
-        userKeyIntent.putExtra("UserKey", userKey)
-        startActivity(userKeyIntent)
+    fun moveMainPage(userKey : String, userEmail: String, userName: String){
+        val userIntent = Intent(this, HomePage::class.java)
+        userIntent.putExtra("UserKey", userKey)
+        userIntent.putExtra("UserName", userName)
+        userIntent.putExtra("UserEmail", userEmail)
+        startActivity(userIntent)
     }
 }
