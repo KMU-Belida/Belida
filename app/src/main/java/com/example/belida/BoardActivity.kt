@@ -82,6 +82,15 @@ class BoardActivity : AppCompatActivity() {
             // Explain of content
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![p1].explain
 
+            // item name
+            viewholder.item_name.text = contentDTOs!![p1].itemname
+
+            // item category
+            viewholder.item_category.text = contentDTOs!![p1].category
+
+            // item price
+            viewholder.item_price.text = contentDTOs!![p1].price
+
             // likes
 //            viewholder.detailviewitem_favoritecounter_textview.text = "Likes " + contentDTOs!![p1].favoriteCount
 
