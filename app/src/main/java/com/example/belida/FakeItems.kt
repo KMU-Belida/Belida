@@ -10,12 +10,12 @@ val fakeBannerItemList = arrayListOf<BannerItem>(
 
 val fakeGridItemList = arrayListOf<GridItem>(
     GridItem(R.drawable.monitor, "디지털기기"),
-    GridItem(R.drawable.sport, "레저/스포츠"),
+    GridItem(R.drawable.sport, "스포츠"),
     GridItem(R.drawable.clothes, "의류/잡화"),
     GridItem(R.drawable.pot, "생활/주방"),
-    GridItem(R.drawable.furniture, "가구/인테리어"),
-    GridItem(R.drawable.game, "취미/악기/게임"),
-    GridItem(R.drawable.dog, "반려동물용품"),
+    GridItem(R.drawable.furniture, "인테리어"),
+    GridItem(R.drawable.game, "취미/게임"),
+    GridItem(R.drawable.dog, "동물용품"),
     GridItem(R.drawable.magnifier, "전체보기"),
 //    GridItem(R.drawable.i, "피자"),
 //    GridItem(R.drawable.j, "이시안·양식"),
