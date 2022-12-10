@@ -165,7 +165,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
                     //파이어베이스에 저장해야 할 지역구 단위값
 
-                    var addrLocality = addr[0].adminArea
+                    var addrLocality = addr[0].subLocality
 
                     userDB.child(userKey).child("userLocation").setValue(addrLocality)
 

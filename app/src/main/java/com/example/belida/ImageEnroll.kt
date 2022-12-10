@@ -7,16 +7,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.example.belida.model.ContentDTO
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.declare.*
 import kotlinx.android.synthetic.main.item_enroll.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +31,7 @@ class ImageEnroll : AppCompatActivity(){
         setContentView(R.layout.item_enroll)
 
         // 사용할 객체 생성해주기
-        val upload_btn : Button = findViewById(R.id.upload_btn)
+        val upload_btn : AppCompatImageButton = findViewById(R.id.upload_btn)
         val photo_btn : ImageButton = findViewById((R.id.photo_btn))
 
         // initiate storage (초기화하기)
@@ -55,10 +53,10 @@ class ImageEnroll : AppCompatActivity(){
         }
 
         // 상세 설명 버튼들
-        declare_btn.setOnClickListener {
-            val intent = Intent(this, Declare::class.java)
-            startActivity(intent)
-        }
+//        declare_btn.setOnClickListener {
+//            val intent = Intent(this, Declare::class.java)
+//            startActivity(intent)
+//        }
         option1_btn.setOnClickListener {
             val intent = Intent(this,OptionFragment::class.java)
             startActivity(intent)
@@ -67,7 +65,7 @@ class ImageEnroll : AppCompatActivity(){
             val intent = Intent(this,OptionFragment2::class.java)
             startActivity(intent)
         }
-        back_btn.setOnClickListener{
+        back_enroll_btn.setOnClickListener{
             finish()
         }
     }

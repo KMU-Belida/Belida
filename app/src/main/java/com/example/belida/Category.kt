@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.activity_category.category_btn
-import kotlinx.android.synthetic.main.activity_category.home_btn
 import kotlinx.android.synthetic.main.home_page.*
 
 class Category : AppCompatActivity() {
@@ -35,11 +33,11 @@ class Category : AppCompatActivity() {
         val gridLayoutManager = GridLayoutManager(applicationContext,3)
         gridRecyclerView1.layoutManager = gridLayoutManager
 
-        home_btn.setOnClickListener {
+        home_btn1.setOnClickListener {
             val intent = Intent(this,HomePage::class.java)
             startActivity(intent)
         }
-        category_btn.setOnClickListener {
+        category_btn1.setOnClickListener {
             val intent = Intent(this,Category::class.java)
             startActivity(intent)
         }
