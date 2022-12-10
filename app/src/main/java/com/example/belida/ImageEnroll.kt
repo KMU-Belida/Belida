@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.example.belida.model.ContentDTO
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +31,7 @@ class ImageEnroll : AppCompatActivity(){
         setContentView(R.layout.item_enroll)
 
         // 사용할 객체 생성해주기
-        val upload_btn : Button = findViewById(R.id.upload_btn)
+        val upload_btn : AppCompatImageButton = findViewById(R.id.upload_btn)
         val photo_btn : ImageButton = findViewById((R.id.photo_btn))
 
         // initiate storage (초기화하기)
