@@ -32,7 +32,6 @@ import kotlin.collections.ArrayList
 
 
 class ChatActivity : AppCompatActivity() {
-
     private lateinit var senderNickName: String
     private lateinit var senderEmail: String
 
@@ -55,23 +54,24 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         // 현재 로그인한 유저 이메일
         senderNickName = intent.getStringExtra("UserLoginedNickName").toString()
         senderEmail = intent.getStringExtra("UserLoginedEmail").toString()
 
         // 메세지 리스트 초기화
         messageList = ArrayList()
-        // adapter 초기화
-        val messageAdapter: MessageAdapter = MessageAdapter(this, messageList, senderEmail)
 
-        // RecyclerView
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.chatRecyclerView.adapter = messageAdapter
 
         //넘어온 데이터 변수에 담기
         receiverNickName = intent.getStringExtra("OpponentNickName").toString()
         receiverEmail = intent.getStringExtra("OpponentEmail").toString()
+
+        // adapter 초기화
+        val messageAdapter: MessageAdapter = MessageAdapter(this, messageList, senderEmail, senderNickName, receiverEmail, receiverNickName)
+
+        // RecyclerView
+        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.chatRecyclerView.adapter = messageAdapter
 
         //db 초기화
         mDbRef = Firebase.database.reference

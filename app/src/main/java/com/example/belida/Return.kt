@@ -78,7 +78,7 @@ class Return : Activity() {
                     "반납신청서를 보냈어요"
 
             // data class에 넣어서 DB에 삽입
-            val messageObject2 = Message(message2, receiverEmail)
+            val messageObject2 = Message(message2, receiverEmail, 3, false)
 
             mDbRef.child("chattingRooms").child(senderRoom).child("messages").push()
                 .setValue(messageObject2).addOnSuccessListener {
@@ -87,16 +87,6 @@ class Return : Activity() {
                         .setValue(messageObject2)
                 }
 
-            val confirmIntent = Intent(this, ReturnConfirm::class.java)
-            confirmIntent.putExtra("SenderNickName", senderNickName)
-            confirmIntent.putExtra("ReceiverNickName", receiverNickName)
-            confirmIntent.putExtra("SenderEmail", senderEmail)
-            confirmIntent.putExtra("ReceiverEmail", receiverEmail)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                //실행할 코드
-                startActivity(confirmIntent)
-            }, 1500)
             finish()
         }
     }
