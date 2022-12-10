@@ -28,7 +28,7 @@ class LocationActivity : AppCompatActivity() {
 
     // 현재 로그인한 유저의 정보
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class LocationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_location)
 
         userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
-        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
         val MY_PERMISSION_ACCESS_ALL = 100
@@ -103,7 +103,7 @@ class LocationActivity : AppCompatActivity() {
                         location_next_btn.setOnClickListener {
                             val intent = Intent(this, HomePage::class.java)
                             intent.putExtra("UserKey", userKey)
-                            intent.putExtra("UserName", userLoginedName)
+                            intent.putExtra("UserNickName", userLoginedNickName)
                             intent.putExtra("UserEmail", userLoginedEmail)
                             startActivity(intent)
                             finish()

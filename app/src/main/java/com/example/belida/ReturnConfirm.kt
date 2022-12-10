@@ -21,9 +21,9 @@ import kotlinx.android.synthetic.main.dialog_return_confirm.*
 class ReturnConfirm : Activity() {
     var dateString = ""
 
-    lateinit var receiverName: String
+    lateinit var receiverNickName: String
     lateinit var receiverEmail: String
-    lateinit var senderName: String
+    lateinit var senderNickName: String
     lateinit var senderEmail: String
     lateinit var senderRoom: String
     lateinit var receiverRoom: String
@@ -40,16 +40,18 @@ class ReturnConfirm : Activity() {
 
         mDbRef = Firebase.database.reference
 
-        receiverName = intent.getStringExtra("ReceiverName").toString()
+        receiverNickName = intent.getStringExtra("ReceiverNickName").toString()
         receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
-        senderName = intent.getStringExtra("SenderName").toString()
+        senderNickName = intent.getStringExtra("SenderNickName").toString()
         senderEmail = intent.getStringExtra("SenderEmail").toString()
 
         // 현재 로그인한 유저 대화방의 변수
-        senderRoom = receiverName + senderName
+        senderRoom = receiverNickName + senderNickName
 
         // 상대방 대화방의 변수
-        receiverRoom = senderName + receiverName
+        receiverRoom = senderNickName + receiverNickName
+
+        checkMessageReturnViewed()
 
         return_confirm_okay_btn.setOnClickListener {
             val senderMessage = "반납 되었습니다."
@@ -120,6 +122,22 @@ class ReturnConfirm : Activity() {
                 Toast.makeText(applicationContext,
                     databaseError.message,
                     Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun checkMessageReturnViewed() {
+        mDbRef.child("chattingRooms").child(senderRoom).child("messages").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(Message::class.java)?.type == 3 && targetSnapshot.getValue(Message::class.java)?.isViewed == false) {
+                        val messageDBKey = targetSnapshot.key.toString()
+                        mDbRef.child("chattingRooms").child(senderRoom).child("messages").child(messageDBKey).child("viewed").setValue(true)
+                        break
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
             }
         })
     }

@@ -36,7 +36,7 @@ class ChatListActivity : AppCompatActivity() {
 
     // 현재 로그인한 유저의 정보
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ class ChatListActivity : AppCompatActivity() {
 
         // 현재 로그인한 유저
         userKey = intent.getStringExtra("UserKey").toString()
-        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
         //db 초기화
@@ -59,7 +59,7 @@ class ChatListActivity : AppCompatActivity() {
         userList = ArrayList()
 
         // adapter 초기화
-        adapter = UserAdapter(this, userList, userLoginedEmail, userLoginedName)
+        adapter = UserAdapter(this, userList, userLoginedEmail, userLoginedNickName)
 
         // layout은 LinearLayout으로 설정
         binding.userRecycelrView.layoutManager = LinearLayoutManager(this)

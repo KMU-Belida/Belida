@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     val database = Firebase.database
     val userDB = database.getReference("user")
 
+    lateinit var userKey: String
+    lateinit var userLoginedNickName: String
+    lateinit var userLoginedEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,9 +37,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
             } else if (tokenInfo != null) {
                 Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomePage::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+                UserApiClient.instance.me { user, _ ->
+                    if (user != null) {
+                        userLoginedEmail = user.kakaoAccount?.email.toString()
+                        getUserKeyAndUserNickName()
+
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    }
+                }
             }
         }
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -78,9 +87,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     else if (user != null) {
                         // val userId = user.id
-                        val userEmail = user.kakaoAccount?.email.toString()
-                        val userName = user.kakaoAccount?.profile?.nickname.toString()
-                        checkEmailDuplicate(userEmail, userName, token.toString())
+                        userLoginedEmail = user.kakaoAccount?.email.toString()
+//                        val userName = user.kakaoAccount?.profile?.nickname.toString()
+                        checkEmailDuplicate(token.toString())
                         finish()
                     }
                 }
@@ -119,34 +128,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 새로운 유저일 경우 DB에 유저 정보 넣기
-    fun pushEmailDB(userEmail : String, userName : String, token : String) {
-        val userKey = userDB.push().key.toString()
-        userDB.child(userKey).setValue(User(userEmail, "", userName, "", token))
+    fun pushEmailDB(token : String) {
+        userKey = userDB.push().key.toString()
+        userDB.child(userKey).setValue(User(userLoginedEmail, "", "", token, ""))
         val userIntent = Intent(this, NicknameActivity::class.java)
         userIntent.putExtra("UserKey", userKey)
-        userIntent.putExtra("UserName", userName)
-        userIntent.putExtra("UserEmail", userEmail)
+        userIntent.putExtra("UserEmail", userLoginedEmail)
         startActivity(userIntent)
     }
 
     // 새로운 유저인지 확인하기 위해 이메일 중복 확인 후 메인페이지로 이동
-    fun checkEmailDuplicate(userEmail: String, userName: String, token: String) {
+    fun checkEmailDuplicate(token: String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var isDuplicate = false
-                var userKey = ""
                 for (targetSnapshot in dataSnapshot.children) {
-                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userLoginedEmail)) {
                         // println(targetSnapshot.getValue(User::class.java)?.userNickName + "중복X")
                         isDuplicate = true
                         userKey = targetSnapshot.key.toString()
+                        userLoginedEmail = targetSnapshot.getValue(User::class.java)?.userEmail.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
                         break
                     }
                 }
                 if (!isDuplicate) {
-                    pushEmailDB(userEmail, userName, token)
+                    pushEmailDB(token)
                 } else {
-                    moveMainPage(userKey, userEmail, userName)
+                    moveMainPage()
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -157,12 +166,32 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    fun getUserKeyAndUserNickName() {
+        userDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userLoginedEmail)) {
+                        userKey = targetSnapshot.key.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
+                        break
+                    }
+                }
+                moveMainPage()
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(applicationContext,
+                    databaseError.message,
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     // 메인페이지로 이동
-    fun moveMainPage(userKey : String, userEmail: String, userName: String){
+    fun moveMainPage(){
         val userIntent = Intent(this, HomePage::class.java)
         userIntent.putExtra("UserKey", userKey)
-        userIntent.putExtra("UserName", userName)
-        userIntent.putExtra("UserEmail", userEmail)
+        userIntent.putExtra("UserNickName", userLoginedNickName)
+        userIntent.putExtra("UserEmail", userLoginedEmail)
         startActivity(userIntent)
     }
 }

@@ -21,6 +21,11 @@ class LoginActivity : AppCompatActivity() {
     val database = Firebase.database
     val userDB = database.getReference("user")
 
+    // 현재 로그인한 유저의 정보
+    lateinit var userKey: String
+    lateinit var userLoginedNickName: String
+    lateinit var userLoginedEmail: String
+
     // 주의 onCreate밖에서 view정보를 호출하면 안됨, 선언까지는가능!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,18 +53,19 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Creating a user account
                     Toast.makeText(this, "회원가입 및 로그인 완료!", Toast.LENGTH_LONG).show()
-                    val userKey = userDB.push().key.toString()
+                    userKey = userDB.push().key.toString()
                     userDB.child(userKey).setValue(
                         User(
                             emailEdit.text.toString(),
                             passwordEdit.text.toString(),
                             "",
                             "",
-                            ""
+                            "",
                         )
                     )
                     val userKeyIntent = Intent(this, NicknameActivity::class.java)
                     userKeyIntent.putExtra("UserKey", userKey)
+                    userKeyIntent.putExtra("UserEmail", emailEdit.text.toString())
                     startActivity(userKeyIntent)
 //                    }else if(!task.exception?.message.isNullOrEmpty()){
 //                        // show login error message
@@ -87,28 +93,19 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    // 로그인이 성공하면 다음페이지로 넘어가는 함수 구현
-    fun moveMainPage(user: FirebaseUser?, userKey: String) {
-        // user 상태가 존재하면 다음페이지로 넘겨주기
-        if (user != null) {
-            val userKeyIntent = Intent(this, HomePage::class.java)
-            userKeyIntent.putExtra("UserKey", userKey)
-            startActivity(userKeyIntent)
-        }
-    }
-
     // 유저 키 가져오기 및 메인 페이지 이동
     fun getUserKeyAndMoveMainPage(user: FirebaseUser?, userEmail : String) {
         userDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var userKey = ""
                 for (targetSnapshot in dataSnapshot.children) {
                     if(targetSnapshot.getValue(User::class.java)?.userEmail.equals(userEmail)) {
                         userKey = targetSnapshot.key.toString()
+                        userLoginedNickName = targetSnapshot.getValue(User::class.java)?.userNickName.toString()
+                        userLoginedEmail = targetSnapshot.getValue(User::class.java)?.userEmail.toString()
                         break
                     }
                 }
-                moveMainPage(user, userKey)
+                moveMainPage(user)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(applicationContext,
@@ -116,5 +113,17 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    // 로그인이 성공하면 다음페이지로 넘어가는 함수 구현
+    fun moveMainPage(user: FirebaseUser?) {
+        // user 상태가 존재하면 다음페이지로 넘겨주기
+        if (user != null) {
+            val userKeyIntent = Intent(this, HomePage::class.java)
+            userKeyIntent.putExtra("UserKey", userKey)
+            userKeyIntent.putExtra("UserNickName", userLoginedNickName)
+            userKeyIntent.putExtra("UserEmail", userLoginedEmail)
+            startActivity(userKeyIntent)
+        }
     }
 }

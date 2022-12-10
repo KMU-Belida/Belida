@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -8,7 +9,9 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -16,13 +19,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.belida.database.User
+import com.bumptech.glide.Glide
+import com.example.belida.model.ContentDTO
 import com.google.android.gms.location.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_home_search.*
 import kotlinx.android.synthetic.main.activity_location.*
 import kotlinx.android.synthetic.main.home_page.*
+import kotlinx.android.synthetic.main.home_page.category_btn
+import kotlinx.android.synthetic.main.home_page.chat_btn
+import kotlinx.android.synthetic.main.home_page.home_btn
+import kotlinx.android.synthetic.main.item_detail_small.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -30,6 +48,10 @@ private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
 class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
+
+    // DB 접근을 위해 firestore 변수 만들어주기
+    var firestore : FirebaseFirestore? = null
+
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var gridRecyclerViewAdapter : GridRecyclerViewAdapter
     lateinit var viewModel: MainActivityViewModel
@@ -37,7 +59,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
     // 현재 로그인한 유저의 정보
     lateinit var userKey: String
-    lateinit var userLoginedName: String
+    lateinit var userLoginedNickName: String
     lateinit var userLoginedEmail: String
 
     //위치 받아오기
@@ -52,8 +74,9 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setGridItems(fakeGridItemList)
 
         userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
-        userLoginedName = intent.getStringExtra("UserName").toString()
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+        getUserLocation() // 위치 정보 가져오기
 
 //        iv_hamburger.setOnClickListener(this)
 
@@ -72,7 +95,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
         chat_btn.setOnClickListener {
             val intent = Intent(this,ChatListActivity::class.java)
             intent.putExtra("UserKey", userKey)
-            intent.putExtra("UserName", userLoginedName)
+            intent.putExtra("UserNickName", userLoginedNickName)
             intent.putExtra("UserEmail", userLoginedEmail)
             startActivity(intent)
         }
@@ -84,12 +107,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             val intent = Intent(this,ImageEnroll::class.java)
             startActivity(intent)
         }
-        item_board_btn.setOnClickListener {
-            var intent = Intent(this, BoardActivity::class.java)
-            startActivity(intent)
-        }
+//        item_board_btn.setOnClickListener {
+//            var intent = Intent(this, HomeSearch::class.java)
+//            startActivity(intent)
+//        }
         //위치 가져오기
-        val userKey = intent.getStringExtra("UserKey").toString() // 데이터베이스에 저장된 유저Key값
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)
         val locationButton: ImageButton = findViewById(R.id.locationButton)
@@ -162,6 +184,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
                 }
             }
         }
+        // initialize
+        firestore = FirebaseFirestore.getInstance()
+
+        home_recyclerview.adapter = DetailViewRecyclerViewAdapter()
+        home_recyclerview.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initViewPager2() {
@@ -226,5 +253,88 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     }
 
     override fun onClick(v: View?) {
+    }
+
+    fun getUserLocation() {
+        userDB.get().addOnSuccessListener {
+            user_location.text =
+                it.child(userKey).getValue(User::class.java)?.userLocation.toString()
+        }
+    }
+
+    // RecyclerView adapter 만들기
+    inner class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        // 정보들 담을 리스트 생성
+        var contentDTOs : ArrayList<ContentDTO> = arrayListOf()
+        var contentUidList : ArrayList<String> = arrayListOf()
+
+        init {
+            firestore?.collection("images")?.orderBy("timestamp", Query.Direction.DESCENDING)?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                contentDTOs.clear()
+                contentUidList.clear()
+
+                for(snapshot in querySnapshot!!.documents){
+                    var item = snapshot.toObject(ContentDTO::class.java)
+                        contentDTOs.add(item!!)
+                        contentUidList.add(snapshot.id)
+                }
+                // 값을 새로 보기 위해서 새로고침 해주기
+                notifyDataSetChanged()
+            }
+        }
+
+        override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
+            var view = LayoutInflater.from(p0.context).inflate(R.layout.item_detail_small, p0, false)
+            return CustomViewHolder(view)
+        }
+
+        inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+        override fun getItemCount(): Int {
+            return contentDTOs.size
+        }
+
+
+        // server 데이터 mapping 시켜주기
+        override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
+            var viewholder = (p0 as CustomViewHolder).itemView
+
+            // UserId
+//            viewholder.detailviewitem_profile_textview.text = contentDTOs!![p1].userId
+
+            // Image
+            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.small_detailviewitem_imageview_content)
+
+            // Explain of content
+//            viewholder.detailviewitem_explain_textview.text = contentDTOs!![p1].explain
+
+            // item name
+            viewholder.small_item_name.text = contentDTOs!![p1].itemname
+
+            // item category
+            viewholder.small_detailviewitem_category_textview.text = contentDTOs!![p1].category
+
+            // item price
+            viewholder.small_item_price.text = contentDTOs!![p1].price + "원"
+
+            // likes
+//            viewholder.detailviewitem_favoritecounter_textview.text = "Likes " + contentDTOs!![p1].favoriteCount
+
+            //ProfileImage
+//            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.detailviewitem_profile_image)
+
+            // 간격 조절
+            val layoutParams = p0.itemView.layoutParams
+            layoutParams.height = 350
+            p0.itemView.requestLayout()
+
+            // 리사이클러뷰 아이템 클릭
+            p0.itemView.setOnClickListener {
+                var intent = Intent(this@HomePage,ItemDetailPage::class.java)
+                intent.putExtra("data", contentDTOs[p1])
+                startActivity(intent)
+                }
+
+        }
     }
 }

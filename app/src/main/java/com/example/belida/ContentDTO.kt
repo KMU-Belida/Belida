@@ -1,5 +1,6 @@
 package com.example.belida.model
 
+import java.io.Serializable
 import java.sql.Timestamp
 
 data class ContentDTO(var explain : String? = null,
@@ -14,10 +15,10 @@ data class ContentDTO(var explain : String? = null,
     // 언제 올렸는지 알기 위한 변수 timestamp
                       var timestamp : Long? = null,
                       var favoriteCount : Int = 0,
-                      var favorites : Map<String, Boolean> = HashMap()){
+                      var favorites : Map<String, Boolean> = HashMap()) : Serializable {
 
     data class Comment(var uid : String? = null,
                        var userId : String? = null,
                        var comment : String? = null,
-                       var timestamp: Long? = null)
+                       var timestamp: Long? = null) : Serializable
 }

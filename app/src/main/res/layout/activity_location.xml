@@ -55,6 +55,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
+    <ImageView
+        android:id="@+id/ic_map"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/world"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"/>
     <TextView
         android:id="@+id/location_textView"
         android:layout_width="wrap_content"
@@ -63,26 +72,63 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="137dp"
         android:fontFamily="@font/roboto"
-        android:text="주소"
+        android:text="현재 위치"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="36sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/ic_map" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/location_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/gps_btn"
         android:backgroundTint="@color/main_purple"
         app:tint="@android:color/white"
         app:fabSize="mini"
         app:layout_constraintStart_toEndOf="@+id/location_textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/ic_map"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <LinearLayout
+        android:id="@+id/textset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_btn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/gray"
+            android:layout_marginTop="20dp"
+            android:textSize="12dp"
+            android:text="‘벨리다’는 동네 주민과 함께하는" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/gray"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"
+            android:text="유휴장비 대여 플랫폼입니다" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/gray"
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"
+            android:text="내 동네를 설정하고 시작해보아요!" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/location_next_btn"
@@ -90,12 +136,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/button_main"
         android:text="현재 위치로 동네 변경하기"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto"
-        app:layout_constraintTop_toBottomOf="@+id/location_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textset" />
 
 
 
