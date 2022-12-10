@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -327,6 +328,12 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             layoutParams.height = 350
             p0.itemView.requestLayout()
 
+            // 리사이클러뷰 아이템 클릭
+            p0.itemView.setOnClickListener {
+                var intent = Intent(this@HomePage,ItemDetailPage::class.java)
+                intent.putExtra("data", contentDTOs[p1])
+                startActivity(intent)
+                }
 
         }
     }
