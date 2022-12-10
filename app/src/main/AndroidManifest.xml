@@ -19,6 +19,13 @@
         android:theme="@style/Theme.Belida"
         tools:targetApi="31">
         <activity
+            android:name=".ItemDetailPage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ItemView"
             android:exported="false">
             <meta-data
@@ -101,50 +108,48 @@
         </activity>
         <activity
             android:name=".Rental"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Return"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".RentalConfirm"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ReturnConfirm"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Report"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Rating"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

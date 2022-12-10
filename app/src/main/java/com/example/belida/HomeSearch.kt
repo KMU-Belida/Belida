@@ -13,8 +13,6 @@ import com.example.belida.model.ContentDTO
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_home_search.*
-import kotlinx.android.synthetic.main.activity_home_search.category_btn
-import kotlinx.android.synthetic.main.activity_home_search.home_btn
 import kotlinx.android.synthetic.main.home_page.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 import kotlinx.android.synthetic.main.item_detail_small.view.*
@@ -33,14 +31,6 @@ class HomeSearch : AppCompatActivity() {
 
         filter_btn.setOnClickListener {
             val intent = Intent(this,Filter::class.java)
-            startActivity(intent)
-        }
-        home_btn.setOnClickListener {
-            val intent = Intent(this,HomePage::class.java)
-            startActivity(intent)
-        }
-        category_btn.setOnClickListener {
-            val intent = Intent(this,Category::class.java)
             startActivity(intent)
         }
 
@@ -131,8 +121,13 @@ class HomeSearch : AppCompatActivity() {
             layoutParams.height = 350
             p0.itemView.requestLayout()
 
+            // 리사이클러뷰 아이템 클릭
+            p0.itemView.setOnClickListener {
+                var intent = Intent(this@HomeSearch,ItemDetailPage::class.java)
+                intent.putExtra("data", contentDTOs[p1])
+                startActivity(intent)
+            }
+
         }
     }
-
-
 }
