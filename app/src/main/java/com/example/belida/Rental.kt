@@ -2,6 +2,7 @@ package com.example.belida
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,24 +12,36 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.belida.database.Message
+import com.example.belida.database.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.dialog_rental.*
 import java.util.*
 
 class Rental : Activity() {
     var dateString = ""
+//    val database = Firebase.database
+//    val userDB = database.getReference("user")
 
+    lateinit var startDate: String
+    lateinit var endDate: String
+    lateinit var mDbRef: DatabaseReference
+    lateinit var reservationToken: String
+    lateinit var depositToken: String
     lateinit var receiverNickName: String
     lateinit var receiverEmail: String
     lateinit var senderNickName: String
     lateinit var senderEmail: String
-    lateinit var startDate: String
-    lateinit var endDate: String
-    lateinit var mDbRef: DatabaseReference
+
+//    lateinit var userKey: String
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +50,8 @@ class Rental : Activity() {
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         mDbRef = Firebase.database.reference
+
+//        userKey = intent.getStringExtra("UserKey").toString()
 
         receiverNickName = intent.getStringExtra("ReceiverNickName").toString()
         receiverEmail = intent.getStringExtra("ReceiverEmail").toString()
@@ -94,9 +109,8 @@ class Rental : Activity() {
             finish()
         }
         btnSave.setOnClickListener {
-
-            val reservationToken = reservationTokenEdit.text.toString()
-            val depositToken = depositTokenEdit.text.toString()
+            reservationToken = reservationTokenEdit.text.toString()
+            depositToken = depositTokenEdit.text.toString()
             //보내기 버튼
             val message = "${receiverNickName}님께 \n" +
                     "대여신청서를 보냈어요 \n" +
@@ -105,7 +119,7 @@ class Rental : Activity() {
                     "보증금 : " + "${depositToken} 벨리"
 
             // data class에 넣어서 DB에 삽입
-            val messageObject = Message(message, senderEmail)
+            val messageObject = Message(message, senderEmail, 1, true, reservationToken, depositToken)
 
             mDbRef.child("chattingRooms").child(senderRoom).child("messages").push()
                 .setValue(messageObject).addOnSuccessListener {
@@ -121,7 +135,7 @@ class Rental : Activity() {
                     "보증금 : " + "${depositToken} 벨리"
 
             // data class에 넣어서 DB에 삽입
-            val messageObject2 = Message(message2, receiverEmail)
+            val messageObject2 = Message(message2, receiverEmail, 2, false,  reservationToken, depositToken)
 
             mDbRef.child("chattingRooms").child(senderRoom).child("messages").push()
                 .setValue(messageObject2).addOnSuccessListener {
@@ -129,20 +143,6 @@ class Rental : Activity() {
                     mDbRef.child("chattingRooms").child(receiverRoom).child("messages").push()
                         .setValue(messageObject2)
                 }
-
-            val confirmIntent = Intent(this, RentalConfirm::class.java)
-            confirmIntent.putExtra("SenderNickName", senderNickName)
-            confirmIntent.putExtra("ReceiverNickName", receiverNickName)
-            confirmIntent.putExtra("SenderEmail", senderEmail)
-            confirmIntent.putExtra("ReceiverEmail", receiverEmail)
-            confirmIntent.putExtra("ReservationToken", reservationToken)
-            confirmIntent.putExtra("DepositToken", depositToken)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                //실행할 코드
-                startActivity(confirmIntent)
-            }, 1500)
-
             finish()
         }
     }

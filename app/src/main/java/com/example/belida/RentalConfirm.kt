@@ -58,6 +58,8 @@ class RentalConfirm : Activity() {
         // 상대방 대화방의 변수
         receiverRoom = senderNickName + receiverNickName
 
+        checkMessageRentalViewed()
+
         borrow_confirm_btn.setOnClickListener {
             val senderMessage = "대여가 확정되었습니다."
             insertSenderDB(senderMessage)
@@ -81,7 +83,7 @@ class RentalConfirm : Activity() {
 
     fun insertSenderDB(senderMessage : String) {
         // data class에 넣어서 DB에 삽입
-        val senderMessageObject = Message(senderMessage, senderEmail)
+        val senderMessageObject = Message(senderMessage, senderEmail, 1, true, reservationToken, depositToken)
 
         mDbRef.child("chattingRooms").child(senderRoom).child("messages").push()
             .setValue(senderMessageObject).addOnSuccessListener {
@@ -93,7 +95,7 @@ class RentalConfirm : Activity() {
 
     fun insertReceiverDB(receiverMessage: String) {
         // data class에 넣어서 DB에 삽입
-        val receiverMessageObject = Message(receiverMessage, receiverEmail)
+        val receiverMessageObject = Message(receiverMessage, receiverEmail, 1, true, reservationToken, depositToken)
 
         mDbRef.child("chattingRooms").child(senderRoom).child("messages").push()
             .setValue(receiverMessageObject).addOnSuccessListener {
@@ -127,6 +129,22 @@ class RentalConfirm : Activity() {
                 Toast.makeText(applicationContext,
                     databaseError.message,
                     Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun checkMessageRentalViewed() {
+        mDbRef.child("chattingRooms").child(senderRoom).child("messages").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(Message::class.java)?.type == 2 && targetSnapshot.getValue(Message::class.java)?.isViewed == false) {
+                        val messageDBKey = targetSnapshot.key.toString()
+                        mDbRef.child("chattingRooms").child(senderRoom).child("messages").child(messageDBKey).child("viewed").setValue(true)
+                        break
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
             }
         })
     }

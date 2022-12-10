@@ -51,6 +51,8 @@ class ReturnConfirm : Activity() {
         // 상대방 대화방의 변수
         receiverRoom = senderNickName + receiverNickName
 
+        checkMessageReturnViewed()
+
         return_confirm_okay_btn.setOnClickListener {
             val senderMessage = "반납 되었습니다."
             insertSenderDB(senderMessage)
@@ -120,6 +122,22 @@ class ReturnConfirm : Activity() {
                 Toast.makeText(applicationContext,
                     databaseError.message,
                     Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun checkMessageReturnViewed() {
+        mDbRef.child("chattingRooms").child(senderRoom).child("messages").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (targetSnapshot in dataSnapshot.children) {
+                    if(targetSnapshot.getValue(Message::class.java)?.type == 3 && targetSnapshot.getValue(Message::class.java)?.isViewed == false) {
+                        val messageDBKey = targetSnapshot.key.toString()
+                        mDbRef.child("chattingRooms").child(senderRoom).child("messages").child(messageDBKey).child("viewed").setValue(true)
+                        break
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
             }
         })
     }
