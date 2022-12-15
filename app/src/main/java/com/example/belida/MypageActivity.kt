@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import com.example.belida.database.User
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_category.*
 
 class MypageActivity : AppCompatActivity() {
     val database = Firebase.database
@@ -38,6 +39,24 @@ class MypageActivity : AppCompatActivity() {
             moveLocationPage()
         }
         setUserInformationAndDisplay(userKey)
+        home_btn1.setOnClickListener {
+            val intent = Intent(this,HomePage::class.java)
+            startActivity(intent)
+        }
+        category_btn1.setOnClickListener {
+            val intent = Intent(this,Category::class.java)
+            startActivity(intent)
+        }
+
+        addbtn1.setOnClickListener {
+            val intent = Intent(this,ImageEnroll::class.java)
+            startActivity(intent)
+        }
+
+        chat_btn1.setOnClickListener {
+            val intent = Intent(this,ChatListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun moveMypageInfo(userKey: String) {

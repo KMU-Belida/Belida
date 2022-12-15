@@ -101,14 +101,14 @@
             android:clickable="true"
             android:src="@drawable/navi_plus"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chat_btn"
+            app:layout_constraintEnd_toStartOf="@+id/chat_btn1"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/category_btn1"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
         <ImageButton
-            android:id="@+id/chat_btn"
+            android:id="@+id/chat_btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -116,14 +116,14 @@
             android:clickable="true"
             android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_btn"
+            app:layout_constraintEnd_toStartOf="@+id/mypage_btn1"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/addbtn1"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_navi_chat" />
 
         <ImageButton
-            android:id="@+id/mypage_btn"
+            android:id="@+id/mypage_btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/chat_btn"
+            app:layout_constraintStart_toEndOf="@+id/chat_btn1"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_navi_mypage" />
 
