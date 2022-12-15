@@ -111,6 +111,11 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 //            var intent = Intent(this, HomeSearch::class.java)
 //            startActivity(intent)
 //        }
+        mypage_btn.setOnClickListener {
+            val intent = Intent(this,MypageActivity::class.java)
+            intent.putExtra("UserKey", userKey)
+            startActivity(intent)
+        }
         //위치 가져오기
         val MY_PERMISSION_ACCESS_ALL = 100
         val geocoder = Geocoder(this)

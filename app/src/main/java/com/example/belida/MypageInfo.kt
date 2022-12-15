@@ -34,7 +34,7 @@ class MypageInfo : AppCompatActivity() {
     fun setUserInformationAndDisplay(userKey : String) {
         // 화면에 띄울 유저 정보 값
         val userNickname : TextView = findViewById((R.id.account_nickname))
-        val userName : TextView = findViewById((R.id.account_name))
+//        val userName : TextView = findViewById((R.id.account_name))
         val userEmail : TextView = findViewById(R.id.account_email)
         val userLocation : TextView = findViewById(R.id.account_location)
 
@@ -42,7 +42,7 @@ class MypageInfo : AppCompatActivity() {
             userNickname.text =
                 it.child(userKey).getValue(User::class.java)?.userNickName.toString()
             userEmail.text = it.child(userKey).getValue(User::class.java)?.userEmail.toString()
-            userName.text = ""
+//            userName.text = ""
             userLocation.text =
                 it.child(userKey).getValue(User::class.java)?.userLocation.toString()
         }

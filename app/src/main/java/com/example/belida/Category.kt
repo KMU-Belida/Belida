@@ -8,6 +8,9 @@ import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.home_page.*
 
 class Category : AppCompatActivity() {
+    lateinit var userKey: String
+    lateinit var userLoginedNickName: String
+    lateinit var userLoginedEmail: String
 
     private var userList = arrayListOf<DataVo>(
         DataVo("디지털기기",R.drawable.monitor),
@@ -26,6 +29,10 @@ class Category : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
+
+        userKey = intent.getStringExtra("UserKey").toString() // 현재 로그인한 userKey값
+        userLoginedNickName = intent.getStringExtra("UserNickName").toString()
+        userLoginedEmail = intent.getStringExtra("UserEmail").toString()
 
         val mAdapter = CustomAdapter(this,userList)
         gridRecyclerView1.adapter = mAdapter
@@ -47,6 +54,17 @@ class Category : AppCompatActivity() {
         }
         addbtn1.setOnClickListener {
             val intent = Intent(this,ImageEnroll::class.java)
+            startActivity(intent)
+        }
+        chat_btn1.setOnClickListener {
+            val intent = Intent(this,ChatListActivity::class.java)
+            intent.putExtra("UserKey", userKey)
+            intent.putExtra("UserNickName", userLoginedNickName)
+            intent.putExtra("UserEmail", userLoginedEmail)
+            startActivity(intent)
+        }
+        mypage_btn1.setOnClickListener {
+            val intent = Intent(this,MypageActivity::class.java)
             startActivity(intent)
         }
     }
