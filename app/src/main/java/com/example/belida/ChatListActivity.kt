@@ -1,7 +1,9 @@
 package com.example.belida
 
 import android.accessibilityservice.GestureDescription.StrokeDescription
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -51,6 +54,21 @@ class ChatListActivity : AppCompatActivity() {
         userKey = intent.getStringExtra("UserKey").toString()
         userLoginedNickName = intent.getStringExtra("UserNickName").toString()
         userLoginedEmail = intent.getStringExtra("UserEmail").toString()
+
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+            }
+        }
+
 
         //db 초기화
         mDbRef = Firebase.database.reference

@@ -32,5 +32,5 @@
         android:id="@+id/user_recycelrView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/user_layout"/>
+        tools:listitem="@layout/user_layout" />
 </LinearLayout>

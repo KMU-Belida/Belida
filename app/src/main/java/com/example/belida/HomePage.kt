@@ -1,6 +1,7 @@
 package com.example.belida
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -48,6 +49,9 @@ private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
 class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
+
+    // category fillter 변수 생성
+    var category_fillter : String? = null
 
     // DB 접근을 위해 firestore 변수 만들어주기
     var firestore : FirebaseFirestore? = null
@@ -190,6 +194,10 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
             }
         }
         // initialize
+        if(intent.hasExtra("category_fillter")){
+            category_fillter = intent.getSerializableExtra("category_fillter") as String
+        }
+
         firestore = FirebaseFirestore.getInstance()
 
         home_recyclerview.adapter = DetailViewRecyclerViewAdapter()
@@ -268,6 +276,7 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
     }
 
     // RecyclerView adapter 만들기
+    @SuppressLint("SuspiciousIndentation")
     inner class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         // 정보들 담을 리스트 생성
         var contentDTOs : ArrayList<ContentDTO> = arrayListOf()
@@ -280,8 +289,16 @@ class HomePage : AppCompatActivity(), View.OnClickListener,Interaction {
 
                 for(snapshot in querySnapshot!!.documents){
                     var item = snapshot.toObject(ContentDTO::class.java)
+                    if(category_fillter == null || category_fillter == "all"){
                         contentDTOs.add(item!!)
                         contentUidList.add(snapshot.id)
+                    }
+                    else{
+                        if(item?.category == category_fillter){
+                            contentDTOs.add(item!!)
+                            contentUidList.add(snapshot.id)
+                        }
+                    }
                 }
                 // 값을 새로 보기 위해서 새로고침 해주기
                 notifyDataSetChanged()
